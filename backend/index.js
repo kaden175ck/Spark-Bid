@@ -1,53 +1,88 @@
-//console.log("Hello, world!");
+// console.log("Hello, world!");
+
 // Load environment variables
 require('dotenv').config();
 
-// Importing dependencies
 const express = require('express');
+const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
+const bodyParser = require('body-parser');
 
-// Initialize Supabase
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SECRET_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Initialize Express and Middleware
-const app = express();
-app.use(express.json()); // for parsing application/json
-const port = 3001;
-
-// User Registration
-app.post('/register', async (req, res) => {
-  console.log('Attempting to register user...');
-  const { email, password } = req.body;
-  const { user, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-  if (error) {
-    console.log('Error during registration:', error.message);
-    return res.status(401).json({ error: error.message });
-  }
-  console.log('User registered:', user);
-  return res.status(200).json({ user });
-});
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json()); // Use bodyParser to parse JSON bodies
 
 
-// User Login
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const { user, error } = await supabase.auth.signIn({
-    email,
-    password,
-  });
-  if (error) return res.status(401).json({ error: error.message });
-  return res.status(200).json({ user });
-});
 
+console.log('Starting server...');
+
+// Test endpoint
 app.get('/', (req, res) => {
-  res.send('Hello, world!');
+  res.send('Auctioning System Backend is running!');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+
+
+// User Registration Endpoint
+app.post('/register', async (req, res) => {
+  const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return res.status(400).send('Please provide username, email, and password');
+  }
+
+  try {
+    let { user, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (signUpError) {
+      if (signUpError.status === 429) {
+        return res.status(429).send('Email rate limit exceeded. Please try again later.');
+      }
+
+      throw signUpError;
+    } 
+    
+    if (!user) throw new Error("User was not created.");
+
+    const { data: userData, error: insertError } = await supabase
+      .from('users')
+      .insert([{ id: user.id, username, email }]);
+
+    if (insertError) throw insertError;
+
+    res.status(201).send({ user: userData });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: error.message, details: error.details });
+  }
+});
+
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+// Fetch Users Endpoint
+app.get('/users', async (req, res) => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*');
+
+  if (error) {
+    return res.status(500).send(error.message);
+  }
+
+  res.status(200).send(data);
 });
