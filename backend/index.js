@@ -9,6 +9,9 @@ const { createClient } = require('@supabase/supabase-js');
 const bodyParser = require('body-parser');
 
 const app = express();
+
+// Import itemRoutes
+const itemRoutes = require('./routes/itemRoutes');
 const PORT = process.env.PORT || 3001;
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SECRET_KEY);
@@ -105,6 +108,11 @@ async function fetchUsers(req, res) {
 }
 
 app.get('/users', fetchUsers);
+
+
+// Use itemRoutes for all item related endpoints
+app.use('/api/items', itemRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
