@@ -11,7 +11,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // Import itemRoutes
-const itemRoutes = require('./routes/itemRoutes');
+const itemRoutes = require('./itemRoutes');
+
 const PORT = process.env.PORT || 3001;
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SECRET_KEY);
