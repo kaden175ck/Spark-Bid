@@ -1,0 +1,44 @@
+.dashboard {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .dashboard-header h1 {
+    margin: 0;
+  }
+  
+  .logout-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .dashboard-nav {
+    background-color: #e8e8e8;
+    padding: 10px;
+  }
+  
+  .dashboard-content {
+    margin: 20px;
+  }
+  
+  .dashboard-footer {
+    background-color: #f4f4f4;
+    padding: 10px;
+  }
+  

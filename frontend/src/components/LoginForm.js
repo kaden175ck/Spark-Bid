@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios'; 
-import './LoginForm.css';
+import './LoginForm.css'; // Ensure this path is correct
 
 function LoginForm() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-  const [error, setError] = useState(''); // State for handling login errors
-  const navigate = useNavigate(); // Hook for navigation
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,7 +17,6 @@ function LoginForm() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    // Simple validation
     if (!formData.email || !formData.password) {
       setError('Please enter both email and password');
       return;
@@ -26,7 +25,7 @@ function LoginForm() {
     try {
       const response = await axios.post('http://localhost:3001/login', formData);
       console.log('Login successful:', response.data);
-      navigate('/dashboard'); // Redirect to dashboard after successful login
+      navigate('/dashboard'); // Navigate to the dashboard
     } catch (error) {
       setError('Login failed: ' + error.response.data);
       console.error('Login error:', error.response.data);
@@ -34,26 +33,26 @@ function LoginForm() {
   };
 
   const handleRegister = () => {
-    navigate('/signup'); // Navigate to the registration page
+    navigate('/signup'); // Navigate to the signup page
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container login-form">
       <img src="/SparkBid.png" alt="SparkBid Logo" className="logo" />
       <form onSubmit={handleLogin}>
-        <label>
-          Email:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input type="password" name="password" value={formData.password} onChange={handleChange} />
-        </label>
-        <br />
-        {error && <div className="error-message">{error}</div>} 
-        <button type="submit">Login</button>
-        <button type="button" onClick={handleRegister}>Register</button>
+        <div className="form-field">
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+        </div>
+        <div className="form-field">
+          <label htmlFor="password">Password:</label>
+          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+        </div>
+        {error && <div className="error-message">{error}</div>}
+        <div className="form-actions">
+          <button type="submit" className="login-btn">Login</button>
+          <button type="button" onClick={handleRegister} className="register-btn">Register</button>
+        </div>
       </form>
     </div>
   );
