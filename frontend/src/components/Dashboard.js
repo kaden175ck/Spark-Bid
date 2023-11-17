@@ -1,17 +1,32 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import the hook for navigation
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
 function Dashboard() {
   const navigate = useNavigate();
+  const [items, setItems] = useState([]); // State to store auction items
 
-  // Function to handle user logout
+  useEffect(() => {
+    // Fetch auction items when the component mounts
+    const fetchItems = async () => {
+      try {
+        const response = await fetch('/api/items'); // Adjust the endpoint as needed
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
   const handleLogout = () => {
     // Perform actions needed to log out the user, like clearing auth tokens
     navigate('/login'); // Redirect to login after logout
   };
 
-  // Example content for the dashboard
   return (
     <div className="dashboard">
       <header className="dashboard-header">
@@ -21,14 +36,28 @@ function Dashboard() {
         </button>
       </header>
       <nav className="dashboard-nav">
-        {/* Navigation items can go here */}
+        <button onClick={() => navigate('/home')}>Home</button>
+        <button onClick={() => navigate('/my-auctions')}>My Auctions</button>
+        <button onClick={() => navigate('/profile')}>Profile</button>
       </nav>
       <main className="dashboard-content">
-        {/* Dashboard main content can go here */}
-        <p>This is the main area for dashboard content like user stats, recent activity, etc.</p>
+        <h2>Active Auction Items</h2>
+        <section className="dashboard-items">
+          {items.length > 0 ? (
+            items.map((item) => (
+              <div key={item.id} className="item">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+                {/* Need more item details like bid amount, time left, etc. */}
+              </div>
+            ))
+          ) : (
+            <p>No active auction items to display.</p>
+          )}
+        </section>
       </main>
       <footer className="dashboard-footer">
-        {/* Footer content can go here */}
+        <p>Contact Us | Terms of Service | Privacy Policy</p>
       </footer>
     </div>
   );

@@ -1,44 +1,79 @@
 .dashboard {
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-  
-  .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  .dashboard-header h1 {
-    margin: 0;
-  }
-  
-  .logout-button {
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .logout-button:hover {
-    background-color: #d32f2f;
-  }
-  
-  .dashboard-nav {
-    background-color: #e8e8e8;
-    padding: 10px;
-  }
-  
-  .dashboard-content {
-    margin: 20px;
-  }
-  
-  .dashboard-footer {
-    background-color: #f4f4f4;
-    padding: 10px;
-  }
-  
+  background-color: #f4f4f4; 
+  color: #333; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+
+.dashboard-header {
+  background-color: #ffffff; 
+  color: #333;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+
+.logout-button {
+  background-color: #ff4c4c; 
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #e04343; 
+}
+
+.dashboard-nav {
+  background-color: #333; 
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+.dashboard-nav button {
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 16px;
+  border: none;
+  background: none;
+}
+
+.dashboard-nav button:hover {
+  background-color: #444; 
+  color: #fff;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; 
+  gap: 20px; 
+}
+
+.item {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px; 
+  text-align: left;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.item:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18);
+}
+
+.dashboard-footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
