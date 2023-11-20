@@ -1,6 +1,7 @@
 ### Environment Setup
 
 1. **Install Git**:
+
    - Ensure you have Git installed. You can install it from [git-scm.com](https://git-scm.com/).
 
 2. **Install Node.js and npm**:
@@ -10,18 +11,21 @@
 ### Pulling the Project
 
 1. **Clone the Repository**:
+
    - You need to open the terminal or command prompt, navigate to the directory where you want to store the project, and run:
      ```
      git clone [repo-url](https://github.com/kaden175ck/SENG513)]
-
+     ```
 
 2. **Navigate to the Project Directory**:
    ```
    cd [project-name]
+   ```
 
 ### Setting Up the Project
 
 1. **Frontend Setup**:
+
    - Navigate to the frontend directory:
      ```
      cd frontend
@@ -36,6 +40,7 @@
      ```
 
 2. **Backend Setup**:
+
    - Open a new terminal or command prompt window.
    - Navigate to the backend directory (from the root of your project):
      ```
@@ -47,21 +52,21 @@
      ```
    - Start the Express server:
      ```
-     node index.js
+     npm start
      ```
 
 3. **Supabase Setup**:
-   - You should install the Supabase client in both the frontend and backend if needed: 
+
+   - You should install the Supabase client in both the frontend and backend if needed:
    - `npm install @supabase/supabase-js`.
-   
 
 4. **Install Express**:
 
    - Navigate to your backend directory and run:
-   
-    ```
-    npm install express
-    ```
+
+   ```
+   npm install express
+   ```
 
 ### Final Steps
 
