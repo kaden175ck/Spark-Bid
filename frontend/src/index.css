@@ -11,3 +11,68 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root{
+  --base-100: rgb(29, 35, 42);
+  --base-200: rgb(25, 30, 36);
+  --base-300: rgb(21, 25, 30);
+  --base-content: rgb(166, 173, 186);
+  --neutral: rgb(42, 50, 60);
+  --neutral-focus: rgb(36, 43, 51);
+  --primary: rgb(100, 26, 230);
+  --primary-focus: rgb(86, 22, 197);
+  --success: rgb(54, 211, 153);
+  --error: rgb(248, 114, 114);
+
+  --mobile-width: 350px;
+  --desktop-width: 1200px;
+}
+
+button{
+  background-color: var(--neutral);
+  border-radius: 4px;
+  color: var(--base-content);
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+button:hover{
+  background-color: var(--neutral-focus);
+}
+
+button[data-primary]{
+  background-color: var(--primary);
+}
+button[data-primary]:hover{
+  background-color: var(--primary-focus);
+}
+
+input{
+  padding: 8px 8px;
+  border-radius: 8px;
+  color: var(--base-content);
+  background-color: var(--base-100);
+  border: 2px solid var(--neutral);
+}
+
+input:focus{
+  outline: none;
+  border: 2px solid var(--base-content);
+}
+
+body{
+  background: var(--base-100);
+  color: var(--base-content);
+  margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+i.button{
+  cursor: pointer;
+}
+
+i.button:hover{
+  color: var(--primary)
+}
