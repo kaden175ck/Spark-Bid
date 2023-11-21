@@ -10,8 +10,5 @@ export const fetchServer = async (input, init) => {
     "X-Refresh-Token": session?.refresh_token ?? "",
   };
 
-  console.log(input);
-  console.log(init);
-
   return await fetch(input, init);
 };

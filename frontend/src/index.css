@@ -1,18 +1,18 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-:root{
+:root {
   --base-100: rgb(29, 35, 42);
   --base-200: rgb(25, 30, 36);
   --base-300: rgb(21, 25, 30);
@@ -28,7 +28,7 @@ code {
   --desktop-width: 1200px;
 }
 
-button{
+button {
   background-color: var(--neutral);
   border-radius: 4px;
   color: var(--base-content);
@@ -38,18 +38,18 @@ button{
   font-weight: bold;
   text-transform: uppercase;
 }
-button:hover{
+button:hover {
   background-color: var(--neutral-focus);
 }
 
-button[data-primary]{
+button[data-primary] {
   background-color: var(--primary);
 }
-button[data-primary]:hover{
+button[data-primary]:hover {
   background-color: var(--primary-focus);
 }
 
-input{
+input {
   padding: 8px 8px;
   border-radius: 8px;
   color: var(--base-content);
@@ -57,22 +57,39 @@ input{
   border: 2px solid var(--neutral);
 }
 
-input:focus{
+input:focus {
   outline: none;
   border: 2px solid var(--base-content);
 }
 
-body{
+input#file-upload-button {
+  color: red;
+}
+
+textarea {
+  padding: 8px 8px;
+  border-radius: 8px;
+  color: var(--base-content);
+  background-color: var(--base-100);
+  border: 2px solid var(--neutral);
+}
+
+textarea:focus {
+  outline: none;
+  border: 2px solid var(--base-content);
+}
+
+body {
   background: var(--base-100);
   color: var(--base-content);
   margin: 0px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-i.button{
+i.button {
   cursor: pointer;
 }
 
-i.button:hover{
-  color: var(--primary)
+i.button:hover {
+  color: var(--primary);
 }

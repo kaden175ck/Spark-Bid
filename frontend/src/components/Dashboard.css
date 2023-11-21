@@ -61,6 +61,46 @@
   flex-grow: 1;
 }
 
+.my-listings {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.listing {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: var(--base-200);
+  padding: 10px;
+  border-radius: 16px;
+  width: min-content;
+}
+
+.listing h3 {
+  margin: 5px;
+}
+
+.listing p {
+  margin: 3px;
+  font-size: 0.8em;
+}
+
+.listing img {
+  margin: auto;
+  max-width: 256px;
+  height: 196px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.listing .details {
+  display: flex;
+  justify-content: space-between;
+  color: var(--success);
+}
+
 .item {
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);

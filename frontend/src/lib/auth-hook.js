@@ -10,7 +10,6 @@ const useAuth = () => {
       const { data, error } = await supabase_client.auth.getSession();
       if (error) setAuthenticated(false);
       if (data?.session) {
-        console.log(data.session);
         setAuthenticated(true);
       }
     };

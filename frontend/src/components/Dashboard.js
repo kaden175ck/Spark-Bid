@@ -3,8 +3,16 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { supabase_client } from "../lib/supabase-client";
 import { fetchServer } from "../lib/fetchServer";
+import ListingWizard from "./ListingWizard";
+import { useAuctionStore } from "../lib/ListingStore";
 
 function Dashboard() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const { auctionListings } = useAuctionStore();
+
   const navigate = useNavigate();
   const [items, setItems] = useState([]); // State to store auction items
 
@@ -15,7 +23,6 @@ function Dashboard() {
         const response = await fetchServer("http://localhost:3001/api/items", {
           credentials: "include",
         }); // Adjust the endpoint as needed
-        console.log(response);
         if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
         setItems(data);
@@ -60,20 +67,40 @@ function Dashboard() {
           <input placeholder="Search..."></input>
           <i className="fa-solid fa-magnifying-glass button"></i>
         </div>
-        <h2>Featured</h2>
-        <section className="dashboard-items">
-          {items.length > 0 ? (
-            items.map((item) => (
-              <div key={item.id} className="item">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                {/* Need more item details like bid amount, time left, etc. */}
+        <div>
+          <h2>Featured</h2>
+          <p>No actively featured items</p>
+        </div>
+
+        <h2>My Listings</h2>
+        <div className="my-listings">
+          {auctionListings.length > 0 ? (
+            auctionListings.map((listing) => (
+              <div key={listing.id} className="listing">
+                <h3>{listing.title}</h3>
+                {listing.images_for_listing &&
+                  listing.images_for_listing.length > 0 && (
+                    <img
+                      src={listing.images_for_listing[0].images.base64}
+                      alt={listing.images_for_listing[0].images.file_name}
+                    />
+                  )}
+                <p>{listing.description}</p>
+                <div className="details">
+                  <span className="start-price">
+                    Starting: ${listing.start_price}
+                  </span>
+                  <span className="increment">
+                    Increment: +${listing.increment}
+                  </span>
+                </div>
               </div>
             ))
           ) : (
-            <p>No active auction items to display.</p>
+            <p>You have no listings</p>
           )}
-        </section>
+          <button onClick={openModal}>Add Listing!</button>
+        </div>
       </main>
       <nav className="dashboard-nav nav-right">
         <i
@@ -85,6 +112,7 @@ function Dashboard() {
           onClick={handleLogout}
         ></i>
       </nav>
+      <ListingWizard isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }
