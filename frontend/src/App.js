@@ -10,6 +10,7 @@ import RegistrationForm from "./components/RegistrationForm";
 import Dashboard from "./components/Dashboard";
 import useAuth from "./lib/auth-hook";
 import { AuctionProvider } from "./lib/ListingStore";
+import UserBids from "./components/UserBids";
 
 function App() {
   const authenticated = useAuth();
@@ -31,6 +32,7 @@ function App() {
             element={authenticated ? <Dashboard /> : <Navigate to="/login" />}
           />
           <Route path="/" element={<Navigate replace to="/login" />} />
+          <Route path="/listing" element={<UserBids />} />
         </Routes>
       </Router>
     </AuctionProvider>
