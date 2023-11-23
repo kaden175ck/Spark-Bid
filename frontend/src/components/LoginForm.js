@@ -9,43 +9,43 @@ function LoginForm() {
     const { error } = await supabase_client.auth.signInWithOAuth({
       provider,
     });
-    console.log(error);
+    if (error) console.log(error);
   };
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  // const [formData, setFormData] = useState({
+  //   email: "",
+  //   password: "",
+  // });
+  // const [error, setError] = useState("");
+  // const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    if (!formData.email || !formData.password) {
-      setError("Please enter both email and password");
-      return;
-    }
+  // const handleLogin = async (event) => {
+  //   event.preventDefault();
+  //   if (!formData.email || !formData.password) {
+  //     setError("Please enter both email and password");
+  //     return;
+  //   }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/login",
-        formData
-      );
-      console.log("Login successful:", response.data);
-      navigate("/dashboard"); // Navigate to the dashboard
-    } catch (error) {
-      setError("Login failed: " + error.response.data);
-      console.error("Login error:", error.response.data);
-    }
-  };
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3001/login",
+  //       formData
+  //     );
+  //     console.log("Login successful:", response.data);
+  //     navigate("/dashboard"); // Navigate to the dashboard
+  //   } catch (error) {
+  //     setError("Login failed: " + error.response.data);
+  //     console.error("Login error:", error.response.data);
+  //   }
+  // };
 
-  const handleRegister = () => {
-    navigate("/signup"); // Navigate to the signup page
-  };
+  // const handleRegister = () => {
+  //   navigate("/signup"); // Navigate to the signup page
+  // };
 
   return (
     <div className="form-container">

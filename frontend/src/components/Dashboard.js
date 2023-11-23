@@ -14,25 +14,33 @@ function Dashboard() {
   const { auctionListings } = useAuctionStore();
 
   const navigate = useNavigate();
-  const [items, setItems] = useState([]); // State to store auction items
+  // const [items, setItems] = useState([]); // State to store auction items
 
-  useEffect(() => {
-    // Fetch auction items when the component mounts
-    const fetchItems = async () => {
-      try {
-        const response = await fetchServer("http://localhost:3001/api/items", {
-          credentials: "include",
-        }); // Adjust the endpoint as needed
-        if (!response.ok) throw new Error("Network response was not ok");
-        const data = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error("Fetch error:", error);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch auction items when the component mounts
+  //   const fetchItems = async () => {
+  //     try {
+  //       const response = await fetchServer("http://localhost:3001/api/items", {
+  //         credentials: "include",
+  //       }); // Adjust the endpoint as needed
+  //       if (!response.ok) throw new Error("Network response was not ok");
+  //       const data = await response.json();
+  //       setItems(data);
+  //     } catch (error) {
+  //       console.error("Fetch error:", error);
+  //     }
+  //   };
 
-    fetchItems();
-  }, []);
+  //   fetchItems();
+  // }, []);
+
+  const deleteListing = async (listing_id) => {
+    let { error } = await supabase_client
+      .from("auction_listing")
+      .delete()
+      .eq("id", listing_id);
+    if (error) console.error(error);
+  };
 
   const handleLogout = async () => {
     const { error } = await supabase_client.auth.signOut();
@@ -72,7 +80,7 @@ function Dashboard() {
           <p>No actively featured items</p>
         </div>
 
-        <h2>My Listings</h2>
+        <h2>All Listings</h2>
         <div className="my-listings">
           {auctionListings.length > 0 ? (
             auctionListings.map((listing) => (
@@ -94,13 +102,16 @@ function Dashboard() {
                     Increment: +${listing.increment}
                   </span>
                 </div>
+                <button onClick={() => deleteListing(listing.id)}>
+                  Delete
+                </button>
               </div>
             ))
           ) : (
             <p>You have no listings</p>
           )}
-          <button onClick={openModal}>Add Listing!</button>
         </div>
+        <button onClick={openModal}>Add Listing!</button>
       </main>
       <nav className="dashboard-nav nav-right">
         <i
