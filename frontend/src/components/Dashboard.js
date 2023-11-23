@@ -5,6 +5,7 @@ import { supabase_client } from "../lib/supabase-client";
 import { fetchServer } from "../lib/fetchServer";
 import ListingWizard from "./ListingWizard";
 import { useAuctionStore } from "../lib/ListingStore";
+import FeaturedItem from "./home/FeaturedItem";
 
 function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,7 +78,8 @@ function Dashboard() {
         </div>
         <div>
           <h2>Featured</h2>
-          <p>No actively featured items</p>
+          <FeaturedItem />
+          {/* <p>No actively featured items</p> */}
         </div>
 
         <h2>All Listings</h2>
