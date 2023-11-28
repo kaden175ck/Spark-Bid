@@ -31,8 +31,10 @@ function App() {
             path="/dashboard"
             element={authenticated ? <Dashboard /> : <Navigate to="/login" />}
           />
+          <Route 
+            path="/user-bids" 
+            element={authenticated ? <UserBids /> : <Navigate to="/login" />}/>
           <Route path="/" element={<Navigate replace to="/login" />} />
-          <Route path="/listing" element={<UserBids />} />
         </Routes>
       </Router>
     </AuctionProvider>

@@ -1,0 +1,59 @@
+.page_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+nav, .nav_left, .nav_right {
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: 5vw;
+}
+
+nav {
+    gap: 3vw;
+}
+
+.nav_right {
+    position: absolute;
+    right: 0;
+}
+
+.search-bar {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 2em;
+}
+
+.search-bar input {
+    height: 2em;
+    flex-grow: 0.5;
+}
+
+.nav_left .logo {
+    max-width: 5vw;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+button {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    height: 5vw;
+    width: 100%;
+    font-size: 1.5em;
+}
