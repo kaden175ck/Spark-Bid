@@ -36,7 +36,7 @@ function LoginForm() {
   //       formData
   //     );
   //     console.log("Login successful:", response.data);
-  //     navigate("/dashboard"); // Navigate to the dashboard
+  //     navigate("/home"); // Navigate to the dashboard
   //   } catch (error) {
   //     setError("Login failed: " + error.response.data);
   //     console.error("Login error:", error.response.data);

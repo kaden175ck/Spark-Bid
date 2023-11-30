@@ -9,8 +9,15 @@ import FeaturedItem from "./home/FeaturedItem";
 
 function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const [selectedListing, setSelectedListing] = useState({});
+  const openModal = (listing = {}) => {
+    setSelectedListing(listing);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setSelectedListing({});
+    setIsModalOpen(false);
+  };
 
   const { auctionListings } = useAuctionStore();
 
@@ -57,15 +64,15 @@ function Dashboard() {
           <i className="fa-solid fa-house"></i>
           Home
         </button>
-        <button onClick={() => navigate("/my-auctions")}>
+        <button onClick={() => navigate("/my-listings")}>
           <i className="fa-solid fa-gavel"></i>
           Listings
         </button>
-        <button onClick={() => navigate("/dashboard")}>
+        <button onClick={() => navigate("/home")}>
           <i className="fa-solid fa-money-bills"></i>
           Bids
         </button>
-        <button onClick={() => navigate("/dashboard")}>
+        <button onClick={() => navigate("/home")}>
           <i className="fa-solid fa-newspaper"></i>
           Subscribed
         </button>
@@ -88,13 +95,9 @@ function Dashboard() {
             auctionListings.map((listing) => (
               <div key={listing.id} className="listing">
                 <h3>{listing.title}</h3>
-                {listing.images_for_listing &&
-                  listing.images_for_listing.length > 0 && (
-                    <img
-                      src={listing.images_for_listing[0].images.base64}
-                      alt={listing.images_for_listing[0].images.file_name}
-                    />
-                  )}
+                {listing.images && listing.images.length > 0 && (
+                  <img src={listing.images[0]} alt="An img" />
+                )}
                 <p>{listing.description}</p>
                 <div className="details">
                   <span className="start-price">
@@ -104,6 +107,7 @@ function Dashboard() {
                     Increment: +${listing.increment}
                   </span>
                 </div>
+                <button onClick={() => openModal(listing)}>Edit</button>
                 <button onClick={() => deleteListing(listing.id)}>
                   Delete
                 </button>
@@ -113,7 +117,7 @@ function Dashboard() {
             <p>You have no listings</p>
           )}
         </div>
-        <button onClick={openModal}>Add Listing!</button>
+        <button onClick={() => openModal()}>Add Listing!</button>
       </main>
       <nav className="dashboard-nav nav-right">
         <i
@@ -125,7 +129,11 @@ function Dashboard() {
           onClick={handleLogout}
         ></i>
       </nav>
-      <ListingWizard isOpen={isModalOpen} onClose={closeModal} />
+      <ListingWizard
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        editListing={selectedListing}
+      />
     </div>
   );
 }

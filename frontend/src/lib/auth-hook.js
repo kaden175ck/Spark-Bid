@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { supabase_client } from "./supabase-client";
 
 const useAuth = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(null);
 
   useEffect(() => {
     // Inner async function
     const checkAuth = async () => {
       const { data, error } = await supabase_client.auth.getSession();
-      if (error) setAuthenticated(false);
+      if (error) setAuthenticated(null);
       if (data?.session) {
-        setAuthenticated(true);
+        setAuthenticated(data.session);
       }
     };
 
@@ -19,7 +19,7 @@ const useAuth = () => {
 
     // Set up the auth state change listener
     const { data: listener } = supabase_client.auth.onAuthStateChange(
-      (_, session) => setAuthenticated(session ? true : false)
+      (data, session) => setAuthenticated(session ? session : null)
     );
 
     // Cleanup function

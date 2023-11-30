@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ConfirmationPage() {
   const navigate = useNavigate();
@@ -7,13 +7,13 @@ function ConfirmationPage() {
   useEffect(() => {
     // Extract the token from the URL fragment
     const params = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = params.get('access_token');
+    const accessToken = params.get("access_token");
 
     if (accessToken) {
-      navigate('/dashboard');
+      navigate("/home");
     } else {
       // If there's no token, navigate back to the login or home page
-      navigate('/login');
+      navigate("/login");
     }
   }, [navigate]);
 

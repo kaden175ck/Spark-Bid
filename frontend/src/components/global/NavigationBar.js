@@ -12,15 +12,15 @@ function NavigationBar() {
           <i className="fa-solid fa-house"></i>
           Home
         </div>
-        <div className="nav-item" onClick={() => navigate("/my-auctions")}>
+        <div className="nav-item" onClick={() => navigate("/my-listings")}>
           <i className="fa-solid fa-gavel"></i>
           Listings
         </div>
-        <div className="nav-item" onClick={() => navigate("/dashboard")}>
+        <div className="nav-item" onClick={() => navigate("/home")}>
           <i className="fa-solid fa-money-bills"></i>
           Bids
         </div>
-        <div className="nav-item" onClick={() => navigate("/dashboard")}>
+        <div className="nav-item" onClick={() => navigate("/home")}>
           <i className="fa-solid fa-newspaper"></i>
           Seller
         </div>

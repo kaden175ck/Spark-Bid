@@ -93,3 +93,9 @@ i.button {
 i.button:hover {
   color: var(--primary);
 }
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: var(--neutral);
+}

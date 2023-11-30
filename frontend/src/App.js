@@ -11,9 +11,10 @@ import Dashboard from "./components/Dashboard";
 import useAuth from "./lib/auth-hook";
 import { AuctionProvider } from "./lib/ListingStore";
 import UserBids from "./components/UserBids";
+import MyListings from "./components/my-listings/MyListings";
 
 function App() {
-  const authenticated = useAuth();
+  const session = useAuth();
 
   return (
     <AuctionProvider>
@@ -21,15 +22,17 @@ function App() {
         <Routes>
           <Route
             path="/login"
-            element={
-              authenticated ? <Navigate to="/dashboard" /> : <LoginForm />
-            }
+            element={!!session ? <Navigate to="/home" /> : <LoginForm />}
           />
           <Route path="/signup" element={<RegistrationForm />} />
           <Route path="/confirm" element={<ConfirmationPage />} />
           <Route
-            path="/dashboard"
-            element={authenticated ? <Dashboard /> : <Navigate to="/login" />}
+            path="/home"
+            element={!!session ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/my-listings"
+            element={!!session ? <MyListings /> : <Navigate to="/login" />}
           />
           <Route path="/" element={<Navigate replace to="/login" />} />
           <Route path="/listing" element={<UserBids />} />

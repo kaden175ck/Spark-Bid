@@ -32,3 +32,23 @@
   cursor: pointer;
   font-size: 1.5em;
 }
+
+.listing-modal .images {
+  display: flex;
+}
+
+.listing-modal .image {
+  position: relative;
+}
+
+.listing-modal .image img {
+  max-height: 256px;
+  width: auto;
+  object-fit: cover;
+}
+
+.listing-modal .image button {
+  position: absolute;
+  right: 3px;
+  top: 5px;
+}

@@ -1,83 +1,95 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ListingWizard.css";
+import { v4 as uuid } from "uuid";
 import { supabase_client } from "../lib/supabase-client";
 import { fileToBase64 } from "../lib/utils";
 
-const ListingWizard = ({ isOpen, onClose, onSubmit }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    startingPrice: "",
-    incrementAmount: "",
-    images: [],
-  });
-
-  const stopPropagation = (e) => {
-    e.stopPropagation();
-  };
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "images") {
-      setFormData({ ...formData, [name]: [...files] });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!formData.images || formData.images.length === 0) {
-      alert("Please upload at least one image.");
-      return;
-    }
-
-    let { data, error } = await supabase_client
-      .from("auction_listing")
-      .insert({
-        title: formData.title,
-        description: formData.description,
-        start_price: formData.startingPrice,
-        increment: formData.incrementAmount,
-        finish_at: new Date(),
-      })
-      .select();
-
-    if (!error && data?.length > 0) {
-      const added_listing = data[0];
-      console.log(added_listing);
-      for (let file of formData.images) {
-        const file_name = file.name;
-        const base64 = await fileToBase64(file);
-        let { data, error } = await supabase_client
-          .from("images")
-          .insert({
-            file_name,
-            base64,
-          })
-          .select();
-
-        if (error || data?.length === 0) {
-          console.error(error);
-        } else {
-          const added_image = data[0];
-          await supabase_client.from("images_for_listing").insert({
-            listing_id: added_listing.id,
-            image_id: added_image.id,
-          });
-        }
-      }
-    }
-
-    if (onSubmit) onSubmit(formData);
-
-    setFormData({
+const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
+  const [formData, setFormData] = useState(
+    editListing || {
       title: "",
       description: "",
       startingPrice: "",
       incrementAmount: "",
       images: [],
+    }
+  );
+
+  useEffect(() => {
+    setFormData({
+      id: editListing.id || uuid(),
+      user_id: editListing.user_id || undefined,
+      title: editListing.title || "",
+      description: editListing.description || "",
+      start_price: editListing.start_price || "",
+      increment: editListing.increment || "",
+      images: editListing.images || [],
+      finish_at: editListing.finish_at || new Date(),
+    });
+  }, [editListing]);
+
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
+  const fileInputRef = useRef(null);
+
+  const triggerFileInput = () => {
+    // Trigger the hidden file input click event
+    fileInputRef.current.click();
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileUpload = async (e) => {
+    const { files } = e.target;
+
+    const images = formData.images;
+
+    for (const file of files) {
+      const base64 = await fileToBase64(file);
+      images.push(base64);
+    }
+
+    setFormData({ ...formData, images: images });
+  };
+
+  const removeImage = (index) => {
+    formData.images.splice(index, 1);
+    setFormData({ ...formData });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let { data, error } = await supabase_client
+      .from("auction_listing")
+      .upsert({
+        id: formData.id,
+        user_id: formData?.user_id ?? undefined,
+        title: formData.title,
+        description: formData.description,
+        start_price: formData.start_price,
+        increment: formData.increment,
+        images: formData.images,
+        finish_at: new Date(),
+      })
+      .select();
+
+    if (onSubmit) onSubmit(formData);
+
+    setFormData({
+      id: uuid(),
+      user_id: undefined,
+      title: "",
+      description: "",
+      start_price: "",
+      increment: "",
+      images: [],
+      finish_at: new Date(),
     });
     onClose();
   };
@@ -90,7 +102,7 @@ const ListingWizard = ({ isOpen, onClose, onSubmit }) => {
         <span className="close-modal" onClick={onClose}>
           &times;
         </span>
-        <div className="modal">
+        <div className="listing-modal">
           <form onSubmit={handleSubmit}>
             <h2>Create Auction Listing</h2>
             <input
@@ -98,41 +110,61 @@ const ListingWizard = ({ isOpen, onClose, onSubmit }) => {
               name="title"
               placeholder="Title"
               value={formData.title}
-              onChange={handleChange}
+              onChange={handleFormChange}
               required // Make title required
             />
             <textarea
               name="description"
               placeholder="Description"
               value={formData.description}
-              onChange={handleChange}
+              onChange={handleFormChange}
               // Description is not required
             />
             <input
               type="number"
               name="startingPrice"
               placeholder="Starting Price"
-              value={formData.startingPrice}
-              onChange={handleChange}
+              value={formData.start_price}
+              onChange={handleFormChange}
               required // Make starting price required
             />
             <input
               type="number"
               name="incrementAmount"
               placeholder="Increment Amount"
-              value={formData.incrementAmount}
-              onChange={handleChange}
+              value={formData.increment}
+              onChange={handleFormChange}
               required // Make increment amount required
             />
+            <div className="images">
+              {formData.images.length > 0 ? (
+                formData.images.map((image, index) => (
+                  <div className="image" key={index}>
+                    <img src={image} alt="An img" />
+                    <button onClick={() => removeImage(index)}>
+                      <i className="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p>You have no images</p>
+              )}
+            </div>
+            <button type="button" onClick={triggerFileInput}>
+              Upload Image
+            </button>
             <input
               type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }} // Hide the file input
               name="images"
               multiple
-              onChange={handleChange}
+              onChange={handleFileUpload}
               accept="image/*" // Accept only image files
-              required // Make image upload required
             />
-            <button type="submit">Create Listing</button>
+            <button type="submit" data-primary>
+              {!editListing ? "Create Listing" : "Save Changes"}
+            </button>
             <button type="button" onClick={onClose}>
               Cancel
             </button>

@@ -12,10 +12,10 @@ export const AuctionProvider = ({ children }) => {
   const fetchAuctionListings = async () => {
     let { data: auction_listing, error } = await supabase_client
       .from("auction_listing")
-      .select("*, images_for_listing(*, images(*))");
+      .select("*");
 
     if (error) {
-      console.error("Error fetching auction listings:", error);
+      console.error("Error fetching auction listings:", error.details);
       return;
     }
 
