@@ -8,47 +8,9 @@ import { useAuctionStore } from "../lib/ListingStore";
 import FeaturedItem from "./home/FeaturedItem";
 
 function Dashboard() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedListing, setSelectedListing] = useState({});
-  const openModal = (listing = {}) => {
-    setSelectedListing(listing);
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setSelectedListing({});
-    setIsModalOpen(false);
-  };
-
   const { auctionListings } = useAuctionStore();
 
   const navigate = useNavigate();
-  // const [items, setItems] = useState([]); // State to store auction items
-
-  // useEffect(() => {
-  //   // Fetch auction items when the component mounts
-  //   const fetchItems = async () => {
-  //     try {
-  //       const response = await fetchServer("http://localhost:3001/api/items", {
-  //         credentials: "include",
-  //       }); // Adjust the endpoint as needed
-  //       if (!response.ok) throw new Error("Network response was not ok");
-  //       const data = await response.json();
-  //       setItems(data);
-  //     } catch (error) {
-  //       console.error("Fetch error:", error);
-  //     }
-  //   };
-
-  //   fetchItems();
-  // }, []);
-
-  const deleteListing = async (listing_id) => {
-    let { error } = await supabase_client
-      .from("auction_listing")
-      .delete()
-      .eq("id", listing_id);
-    if (error) console.error(error);
-  };
 
   const handleLogout = async () => {
     const { error } = await supabase_client.auth.signOut();
@@ -85,7 +47,7 @@ function Dashboard() {
         </div>
         <div>
           <h2>Featured</h2>
-          <FeaturedItem />
+          <FeaturedItem listing={auctionListings[0]} />
           {/* <p>No actively featured items</p> */}
         </div>
 
@@ -96,7 +58,9 @@ function Dashboard() {
               <div key={listing.id} className="listing">
                 <h3>{listing.title}</h3>
                 {listing.images && listing.images.length > 0 && (
-                  <img src={listing.images[0]} alt="An img" />
+                  <a href={`/listing/${listing.id}`}>
+                    <img src={listing.images[0]} alt="An img" />
+                  </a>
                 )}
                 <p>{listing.description}</p>
                 <div className="details">
@@ -107,17 +71,12 @@ function Dashboard() {
                     Increment: +${listing.increment}
                   </span>
                 </div>
-                <button onClick={() => openModal(listing)}>Edit</button>
-                <button onClick={() => deleteListing(listing.id)}>
-                  Delete
-                </button>
               </div>
             ))
           ) : (
             <p>You have no listings</p>
           )}
         </div>
-        <button onClick={() => openModal()}>Add Listing!</button>
       </main>
       <nav className="dashboard-nav nav-right">
         <i
@@ -129,11 +88,6 @@ function Dashboard() {
           onClick={handleLogout}
         ></i>
       </nav>
-      <ListingWizard
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        editListing={selectedListing}
-      />
     </div>
   );
 }

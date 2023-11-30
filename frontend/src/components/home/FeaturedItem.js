@@ -4,10 +4,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./FeaturedItem.css";
+import PropTypes from "prop-types";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-function FeaturedItem() {
+function FeaturedItem({ listing }) {
+  if (!listing) return <div>Missing listing...</div>;
   return (
     <section style={{ display: "flex", gap: 10 }}>
       <section style={{ width: 700, height: 450 }}>
@@ -15,38 +17,23 @@ function FeaturedItem() {
           navigation={true}
           modules={[Navigation, Pagination, Autoplay]}
           loop={true}
-          autoplay={{ delay: 1500, disableOnInteraction: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: true }}
           pagination={{ clickable: true }}
           className="mySwiper"
         >
-          <SwiperSlide
-            className="slide-item"
-            style={{
-              backgroundImage: "url(/assets/sample/featured/image1.webp)",
-            }}
-          ></SwiperSlide>
-          <SwiperSlide
-            className="slide-item"
-            style={{
-              backgroundImage: "url(/assets/sample/featured/image2.webp)",
-            }}
-          ></SwiperSlide>
-          <SwiperSlide
-            className="slide-item"
-            style={{
-              backgroundImage: "url(/assets/sample/featured/image2.jpeg)",
-            }}
-          ></SwiperSlide>
-          <SwiperSlide
-            className="slide-item"
-            style={{
-              backgroundImage: "url(/assets/sample/featured/image4.jpeg)",
-            }}
-          ></SwiperSlide>
+          {listing.images.map((image, index) => (
+            <SwiperSlide key={index} className="slide-item">
+              <img
+                className="swiper-slide-img"
+                src={image}
+                alt={`Slide ${index}`}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         <div id="item-name">
-          <span>1967 Vintage Omega Speedmaster Watch</span>
+          <span>{listing.title}</span>
         </div>
       </section>
       <section>
@@ -54,31 +41,36 @@ function FeaturedItem() {
           <span>
             <p>
               Seller: <br />
-              Morgan F.
+              {"{listing user name}"}
             </p>
             <p>
-              Current Bid: <br />
-              $7,300
+              Current Bid: <br />${"{listing current bid}"}
             </p>
             <p>
               Increment: <br />
-              <span style={{ color: "#32de84" }}>+$100</span>
+              <span style={{ color: "var(--success)" }}>
+                +${listing.increment}
+              </span>
             </p>
             <p>
               Starting Bid: <br />
-              $5000
+              <span style={{ color: "var(--success)" }}>
+                ${listing.start_price}
+              </span>
             </p>
             <p>
               Time Left: <br />
-              <span style={{ color: "#e63946" }}>3 days 12h</span>
+              <span style={{ color: "var(--error)" }}>
+                {"{listing time left}"}
+              </span>
             </p>
             <p>
               Bids: <br />
-              15
+              {"{listing number of bids}"}
             </p>
             <p>
               Subscribers: <br />
-              17
+              {"{listing number of subscribers}"}
             </p>
           </span>
         </div>
@@ -86,5 +78,9 @@ function FeaturedItem() {
     </section>
   );
 }
+
+FeaturedItem.propTypes = {
+  listing: PropTypes.object.isRequired,
+};
 
 export default FeaturedItem;

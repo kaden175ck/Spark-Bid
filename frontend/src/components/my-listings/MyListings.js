@@ -5,7 +5,6 @@ import { supabase_client } from "../../lib/supabase-client";
 import { fetchServer } from "../../lib/fetchServer";
 import ListingWizard from "./../ListingWizard";
 import { useAuctionStore } from "../../lib/ListingStore";
-import FeaturedItem from "./../home/FeaturedItem";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 
