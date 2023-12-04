@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase_client } from "./supabase-client";
 
 // Creating a Context for the auction listings
-const AuctionContext = createContext();
+const SparkBidContext = createContext();
 
 // Provider component
-export const AuctionProvider = ({ children }) => {
+export const SparkBidContextProvider = ({ children }) => {
   const [auctionListings, setAuctionListings] = useState([]);
 
   // Function to fetch auction listings
@@ -22,6 +22,22 @@ export const AuctionProvider = ({ children }) => {
     setAuctionListings(auction_listing);
   };
 
+  const [auctionBids, setAuctionBids] = useState([]);
+
+  // Function to fetch auction bids
+  const fetchAuctionBids = async () => {
+    let { data: bid_on_listing, error } = await supabase_client
+      .from("bid_on_listing")
+      .select("*");
+
+    if (error) {
+      console.error("Error fetching bids on listings:", error.details);
+      return;
+    }
+
+    setAuctionBids(bid_on_listing);
+  };
+
   // Subscribe to changes in the auction_listing table
   useEffect(() => {
     const listing_channel = supabase_client
@@ -35,39 +51,42 @@ export const AuctionProvider = ({ children }) => {
       )
       .subscribe();
 
-    const image_channel = supabase_client
-      .channel("images-channel")
+    const bid_channel = supabase_client
+      .channel("bid-channel")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "images_for_listing" },
+        { event: "*", schema: "public", table: "bid_on_listing" },
         (payload) => {
-          fetchAuctionListings();
+          fetchAuctionBids();
         }
       )
       .subscribe();
 
     // Fetch initial data
     fetchAuctionListings();
+    fetchAuctionBids();
 
     // Cleanup function
     return () => {
       listing_channel.unsubscribe();
-      image_channel.unsubscribe();
+      bid_channel.unsubscribe();
     };
   }, []);
 
   return (
-    <AuctionContext.Provider value={{ auctionListings }}>
+    <SparkBidContext.Provider value={{ auctionListings, auctionBids }}>
       {children}
-    </AuctionContext.Provider>
+    </SparkBidContext.Provider>
   );
 };
 
 // Custom hook to use the auction store
-export const useAuctionStore = () => {
-  const context = useContext(AuctionContext);
+export const useSparkBidContext = () => {
+  const context = useContext(SparkBidContext);
   if (context === undefined) {
-    throw new Error("useAuctionStore must be used within a AuctionProvider");
+    throw new Error(
+      "useSparkBidContext must be used within a SparkBidContextProvider"
+    );
   }
   return context;
 };

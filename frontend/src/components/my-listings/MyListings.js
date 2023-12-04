@@ -4,7 +4,7 @@ import "./MyListings.css";
 import { supabase_client } from "../../lib/supabase-client";
 import { fetchServer } from "../../lib/fetchServer";
 import ListingWizard from "./../ListingWizard";
-import { useAuctionStore } from "../../lib/ListingStore";
+import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 
@@ -20,11 +20,11 @@ function MyListings() {
     setIsModalOpen(false);
   };
 
-  const session = useAuth();
+  const { session, loading } = useAuth();
 
   const user_id = session?.user?.id;
 
-  const { auctionListings } = useAuctionStore();
+  const { auctionListings } = useSparkBidContext();
 
   const [userAuctionListings, setUserAuctionListings] = useState([]);
 

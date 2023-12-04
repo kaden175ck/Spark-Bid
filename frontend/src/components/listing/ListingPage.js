@@ -4,18 +4,26 @@ import "./ListingPage.css";
 import { supabase_client } from "../../lib/supabase-client";
 import { fetchServer } from "../../lib/fetchServer";
 import ListingWizard from "../ListingWizard";
-import { useAuctionStore } from "../../lib/ListingStore";
+import { useSparkBidContext } from "../../lib/SparkBidStore";
 import FeaturedItem from "../home/FeaturedItem";
 import NavigationBar from "../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
+import BidPanel from "./BidPanel";
 
 function ListingPage() {
   const { listing_id } = useParams();
 
+  const { session, loading } = useAuth();
+
+  const user_id = session?.user?.id;
+
+  const [highestBid, setHighestBid] = useState({});
   const [activeListing, setActiveListing] = useState(null);
   const [selectedListing, setSelectedListing] = useState({});
 
-  const { auctionListings } = useAuctionStore();
+  const [listingBids, setListingBids] = useState([]);
+
+  const { auctionListings, auctionBids } = useSparkBidContext();
 
   useEffect(() => {
     // Filter auctionListings based on user_id
@@ -26,6 +34,18 @@ function ListingPage() {
     setActiveListing(listing);
   }, [auctionListings, listing_id]);
 
+  useEffect(() => {
+    const bids = auctionBids.filter((bid) => bid.listing_id === listing_id);
+
+    const highest_bid = bids.reduce(
+      (max, bid) => (bid.amount > max.amount ? bid : max),
+      bids[0]
+    );
+
+    setListingBids(bids);
+    setHighestBid(highest_bid);
+  }, [auctionBids, listing_id]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = (listing = {}) => {
     setSelectedListing(listing);
@@ -35,8 +55,6 @@ function ListingPage() {
     setSelectedListing({});
     setIsModalOpen(false);
   };
-
-  const session = useAuth();
 
   const [userAuctionListings, setUserAuctionListings] = useState([]);
 
@@ -63,7 +81,19 @@ function ListingPage() {
       <NavigationBar />
       <div className="listing-page">
         <h1>{activeListing.title}</h1>
-        <FeaturedItem listing={activeListing}></FeaturedItem>
+        <FeaturedItem listing={activeListing} bids={listingBids}></FeaturedItem>
+        <div>
+          {activeListing.user_id === user_id ? (
+            <div>
+              My Listing
+              <div></div>
+            </div>
+          ) : (
+            <div>
+              <BidPanel listing_id={activeListing.id}></BidPanel>
+            </div>
+          )}
+        </div>
       </div>
       <ListingWizard
         isOpen={isModalOpen}

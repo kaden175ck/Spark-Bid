@@ -4,11 +4,11 @@ import "./Dashboard.css";
 import { supabase_client } from "../lib/supabase-client";
 import { fetchServer } from "../lib/fetchServer";
 import ListingWizard from "./ListingWizard";
-import { useAuctionStore } from "../lib/ListingStore";
+import { useSparkBidContext } from "../lib/SparkBidStore";
 import FeaturedItem from "./home/FeaturedItem";
 
 function Dashboard() {
-  const { auctionListings } = useAuctionStore();
+  const { auctionListings } = useSparkBidContext();
 
   const navigate = useNavigate();
 

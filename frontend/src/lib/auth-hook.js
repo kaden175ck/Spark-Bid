@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { supabase_client } from "./supabase-client";
 
 const useAuth = () => {
-  const [authenticated, setAuthenticated] = useState(null);
+  const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true); // Initial loading state
 
   useEffect(() => {
     // Function to update the authentication state
-    const updateAuthState = (session) => {
-      setAuthenticated(session ? session : null);
+    const updateAuthState = (sess) => {
+      setSession(sess ? sess : null);
       setLoading(false); // Set loading to false after updating auth state
     };
 
@@ -36,7 +36,7 @@ const useAuth = () => {
     };
   }, []);
 
-  return { authenticated, loading };
+  return { session, loading };
 };
 
 export default useAuth;

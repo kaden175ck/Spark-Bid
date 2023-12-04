@@ -18,16 +18,16 @@
 
 .swiper-button-next,
 .swiper-button-prev {
-  color: whitesmoke;
+  color: var(--base-content);
 }
 
 .swiper-pagination-bullet {
-  background-color: whitesmoke;
+  background-color: var(--base-content);
 }
 
 #item-name {
-  background-color: rgb(20, 20, 20);
-  color: whitesmoke;
+  background-color: var(--base-300);
+  color: var(--base-content);
   text-align: center;
   border-radius: 6px;
   padding: 10px;
@@ -36,9 +36,9 @@
 }
 
 #item-description {
-  background-color: rgb(20, 20, 20);
+  background-color: var(--base-300);
   width: 200px;
-  color: whitesmoke;
+  color: var(--base-content);
   height: 450px;
   border-radius: 7px;
   padding: 10px;
