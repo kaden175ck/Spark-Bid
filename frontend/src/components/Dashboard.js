@@ -8,7 +8,7 @@ import { useSparkBidContext } from "../lib/SparkBidStore";
 import FeaturedItem from "./home/FeaturedItem";
 
 function Dashboard() {
-  const { auctionListings } = useSparkBidContext();
+  const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
 
   const navigate = useNavigate();
 
@@ -47,8 +47,15 @@ function Dashboard() {
         </div>
         <div>
           <h2>Featured</h2>
-          <FeaturedItem listing={auctionListings[0]} />
-          {/* <p>No actively featured items</p> */}
+          {auctionListings.length > 0 ? (
+            <FeaturedItem
+              listing={auctionListings[0]}
+              bids={auctionBids}
+              users={sparkUsers}
+            />
+          ) : (
+            <p> No active listings...</p>
+          )}
         </div>
 
         <h2>All Listings</h2>

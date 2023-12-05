@@ -93,3 +93,16 @@
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
 }
+
+.bid-history {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bid-history .history-item {
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+  padding: 5px;
+}

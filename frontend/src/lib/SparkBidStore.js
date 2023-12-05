@@ -38,6 +38,27 @@ export const SparkBidContextProvider = ({ children }) => {
     setAuctionBids(bid_on_listing);
   };
 
+  const [sparkUsers, setSparkUsers] = useState({});
+
+  // Function to fetch auction bids
+  const fetchSparkUsers = async () => {
+    let { data: spark_users, error } = await supabase_client
+      .from("profile")
+      .select("*");
+
+    if (error) {
+      console.error("Error fetching users:", error.details);
+      return;
+    }
+
+    const user_map = spark_users.reduce((map, user) => {
+      map[user.id] = user;
+      return map;
+    }, {});
+
+    setSparkUsers(user_map);
+  };
+
   // Subscribe to changes in the auction_listing table
   useEffect(() => {
     const listing_channel = supabase_client
@@ -65,6 +86,7 @@ export const SparkBidContextProvider = ({ children }) => {
     // Fetch initial data
     fetchAuctionListings();
     fetchAuctionBids();
+    fetchSparkUsers();
 
     // Cleanup function
     return () => {
@@ -74,7 +96,9 @@ export const SparkBidContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <SparkBidContext.Provider value={{ auctionListings, auctionBids }}>
+    <SparkBidContext.Provider
+      value={{ auctionListings, auctionBids, sparkUsers }}
+    >
       {children}
     </SparkBidContext.Provider>
   );

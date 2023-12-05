@@ -8,14 +8,17 @@ import PropTypes from "prop-types";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-function FeaturedItem({ listing, bids }) {
+function FeaturedItem({ listing, bids, users }) {
   if (!listing) return <div>Missing listing...</div>;
   if (!bids) return <div>Missing bids...</div>;
+  if (!users) return <div>Missing users...</div>;
 
   const highest_bid = bids.reduce(
     (max, bid) => (bid.amount > max.amount ? bid : max),
     bids[0]
   );
+
+  const listing_user = users[listing.user_id];
 
   return (
     <section style={{ display: "flex", gap: 10 }}>
@@ -48,7 +51,7 @@ function FeaturedItem({ listing, bids }) {
           <span>
             <p>
               Seller: <br />
-              {"{listing user name}"}
+              {listing_user?.name ?? "Unknown User"}
             </p>
             <p>
               Current Bid: <br />

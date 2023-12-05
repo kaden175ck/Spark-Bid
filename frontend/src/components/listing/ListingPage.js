@@ -23,7 +23,7 @@ function ListingPage() {
 
   const [listingBids, setListingBids] = useState([]);
 
-  const { auctionListings, auctionBids } = useSparkBidContext();
+  const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
 
   useEffect(() => {
     // Filter auctionListings based on user_id
@@ -81,7 +81,11 @@ function ListingPage() {
       <NavigationBar />
       <div className="listing-page">
         <h1>{activeListing.title}</h1>
-        <FeaturedItem listing={activeListing} bids={listingBids}></FeaturedItem>
+        <FeaturedItem
+          listing={activeListing}
+          bids={listingBids}
+          users={sparkUsers}
+        ></FeaturedItem>
         <div>
           {activeListing.user_id === user_id ? (
             <div>
@@ -92,6 +96,19 @@ function ListingPage() {
             <div>
               <BidPanel listing_id={activeListing.id}></BidPanel>
             </div>
+          )}
+        </div>
+        <div className="bid-history">
+          History
+          {listingBids.length > 0 ? (
+            listingBids.map((bid) => (
+              <div key={bid.id} className="history-item">
+                <div>{sparkUsers[bid.user_id]?.name ?? "Unknown User"}</div>
+                <div>{bid.amount}</div>
+              </div>
+            ))
+          ) : (
+            <p>There are no bids</p>
           )}
         </div>
       </div>
