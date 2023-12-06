@@ -7,6 +7,7 @@ import ListingWizard from "./ListingWizard";
 import { useSparkBidContext } from "../lib/SparkBidStore";
 import FeaturedItem from "./home/FeaturedItem";
 import ListingSearch from "./search/ListingSearch";
+import { getPublicUrl } from "../lib/utils";
 
 function Dashboard() {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
@@ -17,6 +18,17 @@ function Dashboard() {
     const { error } = await supabase_client.auth.signOut();
     console.log(error);
     navigate("/login"); // Redirect to login after logout
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedListing, setSelectedListing] = useState({});
+  const openModal = (listing = {}) => {
+    setSelectedListing(listing);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setSelectedListing({});
+    setIsModalOpen(false);
   };
 
   return (
@@ -67,9 +79,12 @@ function Dashboard() {
             auctionListings.map((listing) => (
               <div key={listing.id} className="listing">
                 <h3>{listing.title}</h3>
-                {listing.images && listing.images.length > 0 && (
+                {listing.image_ids && listing.image_ids.length > 0 && (
                   <a href={`/listing/${listing.id}`}>
-                    <img src={listing.images[0]} alt="An img" />
+                    <img
+                      src={getPublicUrl(listing.user_id, listing.image_ids[0])}
+                      alt="An img"
+                    />
                   </a>
                 )}
                 <p>{listing.description}</p>
@@ -81,6 +96,9 @@ function Dashboard() {
                     Increment: +${listing.increment}
                   </span>
                 </div>
+                <button onClick={() => openModal(listing)}>
+                  <i className="fa-solid fa-pen-to-square"></i> Edit
+                </button>
               </div>
             ))
           ) : (
@@ -98,6 +116,11 @@ function Dashboard() {
           onClick={handleLogout}
         ></i>
       </nav>
+      <ListingWizard
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        editListing={selectedListing}
+      />
     </div>
   );
 }
