@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ListingSearch.css";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
+import { getPublicUrl } from "../../lib/utils";
 
 function ListingSearch() {
   const { auctionListings } = useSparkBidContext();
@@ -91,8 +92,11 @@ function ListingSearch() {
               className="search-listing"
               onClick={() => handleResultClick(listing.id)}
             >
-              {listing.images && listing.images.length > 0 && (
-                <img src={listing.images[0]} alt="An img" />
+              {listing.image_ids && listing.image_ids.length > 0 && (
+                <img
+                  src={getPublicUrl(listing.user_id, listing.image_ids[0])}
+                  alt="An img"
+                />
               )}
               <div className="search-details">
                 <h3>{listing.title}</h3>

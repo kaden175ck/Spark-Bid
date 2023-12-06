@@ -13,23 +13,45 @@ import Footer from "./mobile/global/footer/Footer";
 function Dashboard() {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
 
+  const [popularListings, setPopularListings] = useState([]);
+  useEffect(() => {
+    const bidCountByListingId = auctionBids.reduce((map, bid) => {
+      if (!map[bid.listing_id]) map[bid.listing_id] = 1;
+      map[bid.listing_id]++;
+      return map;
+    }, {});
+
+    const popularListings = auctionListings
+      .toSorted((l1, l2) => {
+        const bidCount1 = bidCountByListingId[l1.id] || 0; // Assumes 0 if ID not found
+        const bidCount2 = bidCountByListingId[l2.id] || 0; // Assumes 0 if ID not found
+
+        return bidCount2 - bidCount1; // Sorts in descending order
+      })
+      .slice(0, 4);
+
+    setPopularListings(popularListings);
+  }, [auctionListings, auctionBids]);
+
+  const [highestBidMap, setHighestBidMap] = useState({});
+  useEffect(() => {
+    // Filter auctionListings based on user_id
+
+    const highest_bid_map = auctionBids.reduce((map, bid) => {
+      if (!map[bid.listing_id] || bid.amount > map[bid.listing_id].amount)
+        map[bid.listing_id] = bid;
+      return map;
+    }, {});
+
+    setHighestBidMap(highest_bid_map);
+  }, [auctionBids]);
+
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     const { error } = await supabase_client.auth.signOut();
     console.log(error);
     navigate("/login"); // Redirect to login after logout
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedListing, setSelectedListing] = useState({});
-  const openModal = (listing = {}) => {
-    setSelectedListing(listing);
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setSelectedListing({});
-    setIsModalOpen(false);
   };
 
   return (
@@ -56,16 +78,18 @@ function Dashboard() {
 
       <main className="dashboard-content">
         <div className="search-bar">
-          <ListingSearch></ListingSearch>
+          <div className="search-input-wrapper">
+            <ListingSearch></ListingSearch>
+          </div>
           <a href="/search">
             <i className="fa-solid fa-magnifying-glass button"></i>
           </a>
         </div>
         <div>
           <h2>Featured</h2>
-          {auctionListings.length > 0 ? (
+          {popularListings.length > 0 ? (
             <FeaturedItem
-              listing={auctionListings[0]}
+              listing={popularListings[0]}
               bids={auctionBids}
               users={sparkUsers}
             />
@@ -74,22 +98,31 @@ function Dashboard() {
           )}
         </div>
 
-        <h2>All Listings</h2>
+        <h2>Popular Listings</h2>
         <div className="my-listings">
-          {auctionListings.length > 0 ? (
-            auctionListings.map((listing) => (
-              <div key={listing.id} className="listing">
+          {popularListings.length > 0 ? (
+            popularListings.map((listing) => (
+              <a
+                href={`/listing/${listing.id}`}
+                data-nostyle
+                key={listing.id}
+                className="listing"
+              >
                 <h3>{listing.title}</h3>
                 {listing.image_ids && listing.image_ids.length > 0 && (
-                  <a href={`/listing/${listing.id}`}>
-                    <img
-                      src={getPublicUrl(listing.user_id, listing.image_ids[0])}
-                      alt="An img"
-                    />
-                  </a>
+                  <img
+                    src={getPublicUrl(listing.user_id, listing.image_ids[0])}
+                    alt="An img"
+                  />
                 )}
                 <p>{listing.description}</p>
                 <div className="details">
+                  <span className="start-price">
+                    Highest Bid:{" "}
+                    {highestBidMap[listing.id]
+                      ? `$${highestBidMap[listing.id].amount}`
+                      : "No Bids"}
+                  </span>
                   <span className="start-price">
                     Starting: ${listing.start_price}
                   </span>
@@ -97,14 +130,13 @@ function Dashboard() {
                     Increment: +${listing.increment}
                   </span>
                 </div>
-                <button onClick={() => openModal(listing)}>
-                  <i className="fa-solid fa-pen-to-square"></i> Edit
-                </button>
-              </div>
+              </a>
             ))
           ) : (
             <p>You have no listings</p>
           )}
+
+          <h2>Subscribed Listings</h2>
         </div>
       </main>
       <nav className="dashboard-nav nav-right">
@@ -117,11 +149,6 @@ function Dashboard() {
           onClick={handleLogout}
         ></i>
       </nav>
-      <ListingWizard
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        editListing={selectedListing}
-      />
       <Footer />
     </div>
   );

@@ -8,6 +8,7 @@ import { useSparkBidContext } from "../../lib/SparkBidStore";
 import FeaturedItem from "../home/FeaturedItem";
 import NavigationBar from "../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
+import { getPublicUrl } from "../../lib/utils";
 
 function SearchPage() {
   let { query: urlQuery } = useParams();
@@ -28,7 +29,7 @@ function SearchPage() {
     const query_lower = searchQuery.toLowerCase();
     const searched_listings = auctionListings.filter(
       (listing) =>
-        query_lower.length >= 3 &&
+        query_lower.length >= 2 &&
         (listing.title.toLowerCase().includes(query_lower) ||
           listing.description?.toLowerCase().includes(query_lower))
     );
@@ -47,16 +48,6 @@ function SearchPage() {
     setSearchQuery(event.target.value);
   };
 
-  const navigate = useNavigate();
-
-  const deleteListing = async (listing_id) => {
-    let { error } = await supabase_client
-      .from("auction_listing")
-      .delete()
-      .eq("id", listing_id);
-    if (error) console.error(error);
-  };
-
   return (
     <div className="search-page-container">
       <NavigationBar />
@@ -69,15 +60,21 @@ function SearchPage() {
         <div className="search-results">
           {searchedListings.length > 0 ? (
             searchedListings.map((listing) => (
-              <div key={listing.id} className="listing">
-                <h3>{listing.title}</h3>
-                {listing.images && listing.images.length > 0 && (
-                  <a href={`/listing/${listing.id}`}>
-                    <img src={listing.images[0]} alt="An img" />
-                  </a>
+              <a
+                href={`/listing/${listing.id}`}
+                data-nostyle
+                key={listing.id}
+                className="listing"
+              >
+                {listing.image_ids && listing.image_ids.length > 0 && (
+                  <img
+                    src={getPublicUrl(listing.user_id, listing.image_ids[0])}
+                    alt="An img"
+                  />
                 )}
-                <p>{listing.description}</p>
                 <div className="details">
+                  <h3>{listing.title}</h3>
+                  <p>{listing.description}</p>
                   <span className="start-price">
                     Starting: ${listing.start_price}
                   </span>
@@ -85,7 +82,7 @@ function SearchPage() {
                     Increment: +${listing.increment}
                   </span>
                 </div>
-              </div>
+              </a>
             ))
           ) : (
             <p>No Results...</p>
