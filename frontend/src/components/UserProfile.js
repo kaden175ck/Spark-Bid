@@ -51,7 +51,7 @@ const UserProfile = () => {
                 <section className='about'>
                     <h2>ABOUT USER</h2>
                     <div className='profile-description'>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur adipiscing elit ut aliquam purus sit amet. Ipsum consequat nisl vel pretium lectus quam id leo in. Bibendum at varius vel pharetra vel turpis nunc eget lorem. Sit amet nulla facilisi morbi. Leo urna molestie at elementum eu facilisis sed. Et netus et malesuada fames ac turpis. Et malesuada fames ac turpis egestas sed. Sed vulputate mi sit amet. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Sed tempus urna et pharetra pharetra. A diam sollicitudin tempor id eu nisl nunc mi.</p>
+                        <p>{activeUser?.about ?? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur adipiscing elit ut aliquam purus sit amet. Ipsum consequat nisl vel pretium lectus quam id leo in. Bibendum at varius vel pharetra vel turpis nunc eget lorem. Sit amet nulla facilisi morbi. Leo urna molestie at elementum eu facilisis sed. Et netus et malesuada fames ac turpis. Et malesuada fames ac turpis egestas sed. Sed vulputate mi sit amet. Cras adipiscing enim eu turpis egestas pretium aenean pharetra. Sed tempus urna et pharetra pharetra. A diam sollicitudin tempor id eu nisl nunc mi."}</p>
                     </div>
                 </section>
             </section>
@@ -91,9 +91,22 @@ const UserProfile = () => {
                 <button className='listings-button' onClick={() => navigate('/my-listings')}>All listings</button>
             </section>
 
-            <section id='bids'>
+            <section className='profile-bids'>
                 <h2>MY BIDS PLACEHOLDER</h2>
                 {/*Place trimmed bids module here when ready*/}
+                <button className='bids-button' onClick={() => navigate('/my-bids')}>My Bids</button>
+            </section>
+
+            <section className='profile-subscribed'>
+                <h2>SUBSCRIBED SELLERS</h2>
+                {/*Place module for subscribed sellers here when ready*/}
+                <button className='subscribed-button' onClick={() => navigate('/subscribed')}>Subscribed Sellers</button>
+            </section>
+
+            <section className="profile-previous-bids">
+                <h2>BIDS HISTORY</h2>
+                {/*Place bid history here*/}
+                <button className='bid-history-button' onClick={() => navigate('/bidding-history')}>Bid History</button>
             </section>
         </div>
     );
