@@ -54,6 +54,11 @@
   align-items: center;
 }
 
+.dashboard-content .search-bar a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .dashboard-content .search-bar i {
   font-size: 1.25em;
 }

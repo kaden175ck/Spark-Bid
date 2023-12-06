@@ -1,3 +1,4 @@
+import ListingSearch from "../search/ListingSearch";
 import "./NavigationBar.css";
 import { useNavigate } from "react-router-dom";
 
@@ -27,11 +28,7 @@ function NavigationBar() {
       </section>
       <section id="nav-search">
         <i className="fa-solid fa-magnifying-glass button"></i>
-        <input
-          type="text"
-          className="search-container"
-          placeholder="Search SparkBid"
-        />
+        <ListingSearch></ListingSearch>
       </section>
       <section id="nav-profile">
         <i className="fa-solid fa-user button"></i>

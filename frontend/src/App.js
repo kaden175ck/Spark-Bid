@@ -13,6 +13,7 @@ import { SparkBidContextProvider } from "./lib/SparkBidStore";
 import UserBids from "./components/UserBids";
 import MyListings from "./components/my-listings/MyListings";
 import ListingPage from "./components/listing/ListingPage";
+import SearchPage from "./components/search/SearchPage";
 
 function App() {
   const { session, loading } = useAuth();
@@ -43,6 +44,14 @@ function App() {
           <Route
             path="/listing/:listing_id"
             element={session ? <ListingPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/search"
+            element={session ? <SearchPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/search/:query"
+            element={session ? <SearchPage /> : <Navigate to="/login" />}
           />
           <Route path="/" element={<Navigate replace to="/login" />} />
           <Route path="/listing" element={<UserBids />} />

@@ -6,6 +6,7 @@ import { fetchServer } from "../lib/fetchServer";
 import ListingWizard from "./ListingWizard";
 import { useSparkBidContext } from "../lib/SparkBidStore";
 import FeaturedItem from "./home/FeaturedItem";
+import ListingSearch from "./search/ListingSearch";
 
 function Dashboard() {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
@@ -42,8 +43,10 @@ function Dashboard() {
 
       <main className="dashboard-content">
         <div className="search-bar">
-          <input placeholder="Search..."></input>
-          <i className="fa-solid fa-magnifying-glass button"></i>
+          <ListingSearch></ListingSearch>
+          <a href="/search">
+            <i className="fa-solid fa-magnifying-glass button"></i>
+          </a>
         </div>
         <div>
           <h2>Featured</h2>

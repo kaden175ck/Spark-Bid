@@ -1,0 +1,43 @@
+.listing-search-container {
+  position: relative;
+}
+
+.listing-search-container .search-results-modal {
+  position: absolute;
+  color: var(--base-content);
+  background-color: var(--base-200);
+  width: max-content;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.search-results-modal .search-listing {
+  display: flex;
+  gap: 5px;
+  padding: 10px;
+  width: 100%;
+  text-decoration: none;
+  box-sizing: border-box;
+  color: var(--base-content);
+}
+
+.search-results-modal .search-listing:hover {
+  background-color: var(--neutral);
+}
+
+.search-results-modal .search-listing h3 {
+  margin: 5px;
+}
+
+.search-results-modal .search-listing p {
+  margin: 3px;
+  font-size: 0.8em;
+}
+
+.search-results-modal .search-listing img {
+  max-width: 128px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 16px;
+}
