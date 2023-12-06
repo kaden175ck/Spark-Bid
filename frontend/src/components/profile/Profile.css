@@ -149,4 +149,7 @@
   .account-info {
     display: block;
   }
+  .profile-description {
+    font-size: 1em;
+  }
 }
