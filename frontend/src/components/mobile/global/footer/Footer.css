@@ -1,0 +1,34 @@
+.Footer {
+  display: flex;
+  gap: 10;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--neutral);
+  height: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Mobile configuration */
+
+.Footer {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .Footer {
+    display: flex;
+  }
+}
