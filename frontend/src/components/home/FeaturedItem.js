@@ -58,70 +58,72 @@ function FeaturedItem({ listing, bids, users }) {
   if (!bids) return <div>Missing bids...</div>;
   if (!users) return <div>Missing users...</div>;
   return (
-    <section style={{ display: "flex", gap: 10 }}>
-      <section style={{ width: 700, height: 450 }}>
-        <Swiper
-          navigation={true}
-          modules={[Navigation, Pagination, Autoplay]}
-          loop={true}
-          autoplay={{ delay: 3000, disableOnInteraction: true }}
-          pagination={{ clickable: true }}
-          className="mySwiper"
-        >
-          {(listing.image_ids ?? []).map((image_id, index) => (
-            <SwiperSlide key={index} className="slide-item">
-              <img
-                className="swiper-slide-img"
-                src={getPublicUrl(listing.user_id, image_id)}
-                alt={`Slide ${index}`}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+    <a href={`/listing/${listing.id}`}>
+      <section style={{ display: "flex", gap: 10 }}>
+        <section style={{ width: 700, height: 450 }}>
+          <Swiper
+            navigation={true}
+            modules={[Navigation, Pagination, Autoplay]}
+            loop={true}
+            autoplay={{ delay: 3000, disableOnInteraction: true }}
+            pagination={{ clickable: true }}
+            className="mySwiper"
+          >
+            {(listing.image_ids ?? []).map((image_id, index) => (
+              <SwiperSlide key={index} className="slide-item">
+                <img
+                  className="swiper-slide-img"
+                  src={getPublicUrl(listing.user_id, image_id)}
+                  alt={`Slide ${index}`}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-        <div id="item-name">
-          <span>{listing.title}</span>
-        </div>
+          <div id="item-name">
+            <span>{listing.title}</span>
+          </div>
+        </section>
+        <section>
+          <div id="item-description">
+            <span>
+              <p>
+                Seller: <br />
+                {listing_user?.name ?? "Unknown User"}
+              </p>
+              <p>
+                Current Bid: <br />
+                {highest_bid ? `$${highest_bid.amount}` : "No bids"}
+              </p>
+              <p>
+                Increment: <br />
+                <span style={{ color: "var(--success)" }}>
+                  +${listing.increment}
+                </span>
+              </p>
+              <p>
+                Starting Bid: <br />
+                <span style={{ color: "var(--success)" }}>
+                  ${listing.start_price}
+                </span>
+              </p>
+              <p>
+                Time Left: <br />
+                <span style={{ color: "var(--error)" }}>{timeLeft}</span>
+              </p>
+              <p>
+                Bids: <br />
+                {bids.length}
+              </p>
+              <p>
+                Subscribers: <br />
+                {"{listing number of subscribers}"}
+              </p>
+            </span>
+          </div>
+        </section>
       </section>
-      <section>
-        <div id="item-description">
-          <span>
-            <p>
-              Seller: <br />
-              {listing_user?.name ?? "Unknown User"}
-            </p>
-            <p>
-              Current Bid: <br />
-              {highest_bid ? `$${highest_bid.amount}` : "No bids"}
-            </p>
-            <p>
-              Increment: <br />
-              <span style={{ color: "var(--success)" }}>
-                +${listing.increment}
-              </span>
-            </p>
-            <p>
-              Starting Bid: <br />
-              <span style={{ color: "var(--success)" }}>
-                ${listing.start_price}
-              </span>
-            </p>
-            <p>
-              Time Left: <br />
-              <span style={{ color: "var(--error)" }}>{timeLeft}</span>
-            </p>
-            <p>
-              Bids: <br />
-              {bids.length}
-            </p>
-            <p>
-              Subscribers: <br />
-              {"{listing number of subscribers}"}
-            </p>
-          </span>
-        </div>
-      </section>
-    </section>
+    </a>
   );
 }
 
