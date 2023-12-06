@@ -54,6 +54,10 @@
      ```
      npm start
      ```
+   - Install the necessary packages:
+     ```
+     npm install swiper compressorjs
+     ```
 
 3. **Supabase Setup**:
 
