@@ -1,4 +1,4 @@
-.NavigationBar {
+.NavigationBar > .desktop-content {
   display: flex;
   height: 5em;
   width: 100%;
@@ -11,11 +11,11 @@
   z-index: 1;
 }
 
-.NavigationBar > .logo {
+.NavigationBar > .desktop-content > .logo {
   width: 50px;
 }
 
-.NavigationBar > section {
+.NavigationBar > .desktop-content > section {
   display: flex;
 }
 
@@ -107,4 +107,17 @@
 
 #nav-logout > i {
   font-size: 23px;
+}
+
+.mobile-content {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .NavigationBar > .desktop-content {
+    display: none;
+  }
+  .NavigationBar > .mobile-content {
+    display: flex;
+  }
 }

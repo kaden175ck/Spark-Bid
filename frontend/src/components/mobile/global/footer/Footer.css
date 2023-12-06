@@ -1,5 +1,5 @@
 .Footer {
-  display: flex;
+  display: none;
   gap: 10;
   justify-content: center;
   align-items: center;
@@ -23,11 +23,7 @@ button {
 
 /* Mobile configuration */
 
-.Footer {
-  display: none;
-}
-
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
   .Footer {
     display: flex;
   }
