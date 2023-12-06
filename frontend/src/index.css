@@ -62,8 +62,10 @@ input:focus {
   border: 2px solid var(--base-content);
 }
 
-input#file-upload-button {
-  color: red;
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  background-color: var(--base-content);
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 textarea {

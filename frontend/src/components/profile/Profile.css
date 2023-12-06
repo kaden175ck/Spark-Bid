@@ -1,10 +1,10 @@
-.user-profile-container {
+.profile-page-container, .user-profile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.listings {
+.listings, .profile-bids, .profile-subscribed, .profile-previous-bids {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -12,11 +12,19 @@
     width: 80vw;
 }
 
-.profile-listings {
+.user-listings, .profile-listings {
     width: 100%;
     display: flex;
-    flex-wrap: nowrap;
     gap: 20px;
+}
+
+.user-listings {
+    flex-wrap: nowrap;
+}
+
+.profile-listings {
+    flex-wrap: wrap;
+    padding-bottom: 20px;
 }
   
 .my-listings-content {
@@ -81,7 +89,7 @@
     color: var(--success);
 }
 
-.listings-button {
+.listings-button, .bids-button, .subscribed-button, .bid-history-button {
     min-height: 35px;
     width: 300px;
 }
@@ -112,4 +120,8 @@
     background-color: rgb(25, 30, 36);
     font-size: 1.5em;
     height: 80%;
+}
+
+.NavigationBar {
+    width: 100%;
 }

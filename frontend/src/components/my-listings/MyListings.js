@@ -7,6 +7,8 @@ import ListingWizard from "./../ListingWizard";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
+import { getPublicUrl } from "../../lib/utils";
+import Footer from "../mobile/global/footer/Footer";
 
 function MyListings() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,9 +92,15 @@ function MyListings() {
               <div key={listing.id} className="my-listing">
                 <h3>{listing.title}</h3>
                 <div className="listing-card">
-                  {listing.images && listing.images.length > 0 && (
+                  {listing.image_ids && listing.image_ids.length > 0 && (
                     <a href={`/listing/${listing.id}`}>
-                      <img src={listing.images[0]} alt="An img" />
+                      <img
+                        src={getPublicUrl(
+                          listing.user_id,
+                          listing.image_ids[0]
+                        )}
+                        alt="An img"
+                      />
                     </a>
                   )}
                   <div className="listing-details">
@@ -127,6 +135,7 @@ function MyListings() {
         onClose={closeModal}
         editListing={selectedListing}
       />
+      <Footer />
     </div>
   );
 }
