@@ -15,6 +15,7 @@ import MyListings from "./components/my-listings/MyListings";
 import ListingPage from "./components/listing/ListingPage";
 import SearchPage from "./components/search/SearchPage";
 import UserProfile from "./components/UserProfile";
+import MyBids from "./components/my-bids/MyBids";
 
 function App() {
   const { session, loading } = useAuth();
@@ -60,6 +61,10 @@ function App() {
           />
           <Route path="/" element={<Navigate replace to="/login" />} />
           <Route path="/listing" element={<UserBids />} />
+          <Route
+            path="/my-bids"
+            element={session ? <MyBids /> : <Navigate to="/login" />}
+          />
           {/* Add other routes as needed */}
         </Routes>
       </Router>

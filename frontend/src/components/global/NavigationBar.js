@@ -24,7 +24,7 @@ function NavigationBar() {
           <i className="fa-solid fa-gavel"></i>
           Listings
         </div>
-        <div className="nav-item" onClick={() => navigate("/home")}>
+        <div className="nav-item" onClick={() => navigate("/my-bids")}>
           <i className="fa-solid fa-money-bills"></i>
           Bids
         </div>
