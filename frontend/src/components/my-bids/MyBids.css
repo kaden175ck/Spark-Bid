@@ -12,31 +12,27 @@
     max-width: var(--desktop-width);
     width: 100%;
     margin: auto;
-  }
-  
-  .my-bids-content h2 {
+}
+
+.my-bids-content h2 {
     margin: 0px;
-  }
-  
-  .my-bids-header {
+}
+
+.my-bids-header {
     display: flex;
     justify-content: space-between;
-  }
+}
 
-  .my-bids {
+.my-bids {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-  }
+}
 
-  .my-bid {
+.my-bid {
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
     width: 100%; 
     box-sizing: border-box;
-  }
-
-  .my-bid:last-child {
-    border-bottom: none;
 }
