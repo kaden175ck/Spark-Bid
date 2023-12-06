@@ -1,6 +1,6 @@
 .dashboard-container {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   min-height: 100dvh;
 }
 
@@ -128,6 +128,26 @@
   text-align: center;
   padding: 20px;
   margin-top: 20px;
+}
+
+a:link {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:active {
+  color: inherit;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 800px) {

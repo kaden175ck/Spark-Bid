@@ -9,6 +9,7 @@ import FeaturedItem from "../home/FeaturedItem";
 import NavigationBar from "../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import BidPanel from "./BidPanel";
+import Footer from "../mobile/global/footer/Footer";
 
 function ListingPage() {
   const { listing_id } = useParams();
@@ -118,6 +119,7 @@ function ListingPage() {
         onClose={closeModal}
         editListing={selectedListing}
       />
+      <Footer />
     </div>
   );
 }

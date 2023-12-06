@@ -8,6 +8,7 @@ import { useSparkBidContext } from "../../lib/SparkBidStore";
 import FeaturedItem from "../home/FeaturedItem";
 import NavigationBar from "../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
+import Footer from "../mobile/global/footer/Footer";
 
 function SearchPage() {
   let { query: urlQuery } = useParams();
@@ -92,6 +93,7 @@ function SearchPage() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

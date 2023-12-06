@@ -9,6 +9,7 @@ import FeaturedItem from "./home/FeaturedItem";
 import ListingSearch from "./search/ListingSearch";
 import { getPublicUrl } from "../lib/utils";
 import Footer from "./mobile/global/footer/Footer";
+import NavigationBar from "./global/NavigationBar";
 
 function Dashboard() {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
@@ -34,6 +35,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
+      <NavigationBar />
       <nav className="dashboard-nav">
         <img src="/SparkBid.png" alt="SparkBid Logo" className="logo" />
         <button onClick={() => navigate("/home")}>
@@ -78,29 +80,34 @@ function Dashboard() {
         <div className="my-listings">
           {auctionListings.length > 0 ? (
             auctionListings.map((listing) => (
-              <div key={listing.id} className="listing">
-                <h3>{listing.title}</h3>
-                {listing.image_ids && listing.image_ids.length > 0 && (
-                  <a href={`/listing/${listing.id}`}>
+              <a href={`/listing/${listing.id}`}>
+                <div key={listing.id} className="listing">
+                  <h3>{listing.title}</h3>
+                  {listing.image_ids && listing.image_ids.length > 0 && (
                     <img
                       src={getPublicUrl(listing.user_id, listing.image_ids[0])}
                       alt="An img"
                     />
-                  </a>
-                )}
-                <p>{listing.description}</p>
-                <div className="details">
-                  <span className="start-price">
-                    Starting: ${listing.start_price}
-                  </span>
-                  <span className="increment">
-                    Increment: +${listing.increment}
-                  </span>
+                  )}
+                  <p>{listing.description}</p>
+                  <div className="details">
+                    <span className="start-price">
+                      Starting: ${listing.start_price}
+                    </span>
+                    <span className="increment">
+                      Increment: +${listing.increment}
+                    </span>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openModal(listing);
+                    }}
+                  >
+                    <i className="fa-solid fa-pen-to-square"></i> Edit
+                  </button>
                 </div>
-                <button onClick={() => openModal(listing)}>
-                  <i className="fa-solid fa-pen-to-square"></i> Edit
-                </button>
-              </div>
+              </a>
             ))
           ) : (
             <p>You have no listings</p>
