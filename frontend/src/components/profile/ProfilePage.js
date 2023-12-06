@@ -37,7 +37,7 @@ const ProfilePage = () => {
     <div className="profile-page-container">
       <NavigationBar />
 
-      <section class="account-info">
+      <section className="account-info">
         <figure className="profile-img">
           <img
             src={profile_user?.profile_pic ?? "/blank_profile_pic.jpg"}
