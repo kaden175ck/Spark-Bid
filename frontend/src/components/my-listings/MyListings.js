@@ -91,7 +91,9 @@ function MyListings() {
                 <h3>{listing.title}</h3>
                 <div className="listing-card">
                   {listing.images && listing.images.length > 0 && (
-                    <img src={listing.images[0]} alt="An img" />
+                    <a href={`/listing/${listing.id}`}>
+                      <img src={listing.images[0]} alt="An img" />
+                    </a>
                   )}
                   <div className="listing-details">
                     <p>{listing.description}</p>

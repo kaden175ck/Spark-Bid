@@ -89,8 +89,9 @@ function ListingPage() {
         <div>
           {activeListing.user_id === user_id ? (
             <div>
-              My Listing
-              <div></div>
+              <button onClick={() => openModal(activeListing)}>
+                <i className="fa-solid fa-pen-to-square"></i> Edit
+              </button>
             </div>
           ) : (
             <div>
