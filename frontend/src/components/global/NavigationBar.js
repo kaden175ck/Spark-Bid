@@ -1,10 +1,17 @@
 import ListingSearch from "../search/ListingSearch";
 import "./NavigationBar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { supabase_client } from "../../lib/supabase-client";
+import { useSparkBidContext } from "../../lib/SparkBidStore";
+import useAuth from "../../lib/auth-hook";
 
 function NavigationBar() {
   const navigate = useNavigate();
+  const { session, loading } = useAuth();
+  const user_id = session?.user?.id;
+  const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
+  const activeUser = sparkUsers[user_id];
+  const location = useLocation();
 
   const handleLogout = async () => {
     const { error } = await supabase_client.auth.signOut();
@@ -52,7 +59,15 @@ function NavigationBar() {
         </section>
       </section>
       <section className="mobile-content">
-        <h3>Featured Items</h3>
+        <h3>
+          {location.pathname === "/home"
+            ? "Dashboard"
+            : location.pathname === "/my-listings"
+            ? "Featured Items"
+            : location.pathname === "/profile"
+            ? `${activeUser?.name}'s Profile`
+            : ""}
+        </h3>
         <section id="nav-logout" style={{ marginLeft: "auto" }}>
           <i
             className="fa-solid fa-right-from-bracket button"

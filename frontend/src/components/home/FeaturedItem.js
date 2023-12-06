@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -7,13 +7,9 @@ import "./FeaturedItem.css";
 import PropTypes from "prop-types";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import { getPublicUrl } from "../../lib/utils";
+import { formatDateForLocal, getPublicUrl, toUTCFormat } from "../../lib/utils";
 
 function FeaturedItem({ listing, bids, users }) {
-  if (!listing) return <div>Missing listing...</div>;
-  if (!bids) return <div>Missing bids...</div>;
-  if (!users) return <div>Missing users...</div>;
-
   const highest_bid = bids.reduce(
     (max, bid) => (bid.amount > max.amount ? bid : max),
     bids[0]
@@ -21,6 +17,46 @@ function FeaturedItem({ listing, bids, users }) {
 
   const listing_user = users[listing.user_id];
 
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    // Function to calculate time left
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const finishTime = new Date(formatDateForLocal(listing.finish_at));
+      const difference = finishTime - now;
+
+      let timeLeft = {};
+      if (difference > 0) {
+        timeLeft = {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        };
+      }
+      return timeLeft;
+    };
+
+    // Update the time left immediately and every second
+    const updateTimer = () => {
+      const time = calculateTimeLeft();
+      const formattedTime = `${time.days || 0}d ${time.hours || 0}h ${
+        time.minutes || 0
+      }m ${time.seconds || 0}s`;
+      setTimeLeft(formattedTime);
+    };
+
+    updateTimer();
+    const intervalId = setInterval(updateTimer, 1000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [listing.finish_at]);
+
+  if (!listing) return <div>Missing listing...</div>;
+  if (!bids) return <div>Missing bids...</div>;
+  if (!users) return <div>Missing users...</div>;
   return (
     <section style={{ display: "flex", gap: 10 }}>
       <section style={{ width: 700, height: 450 }}>
@@ -72,9 +108,7 @@ function FeaturedItem({ listing, bids, users }) {
             </p>
             <p>
               Time Left: <br />
-              <span style={{ color: "var(--error)" }}>
-                {"{listing time left}"}
-              </span>
+              <span style={{ color: "var(--error)" }}>{timeLeft}</span>
             </p>
             <p>
               Bids: <br />
