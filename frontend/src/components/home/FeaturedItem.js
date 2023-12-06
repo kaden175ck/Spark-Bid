@@ -7,6 +7,7 @@ import "./FeaturedItem.css";
 import PropTypes from "prop-types";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { getPublicUrl } from "../../lib/utils";
 
 function FeaturedItem({ listing, bids, users }) {
   if (!listing) return <div>Missing listing...</div>;
@@ -31,11 +32,11 @@ function FeaturedItem({ listing, bids, users }) {
           pagination={{ clickable: true }}
           className="mySwiper"
         >
-          {listing.images.map((image, index) => (
+          {(listing.image_ids ?? []).map((image_id, index) => (
             <SwiperSlide key={index} className="slide-item">
               <img
                 className="swiper-slide-img"
-                src={image}
+                src={getPublicUrl(listing.user_id, image_id)}
                 alt={`Slide ${index}`}
               />
             </SwiperSlide>
