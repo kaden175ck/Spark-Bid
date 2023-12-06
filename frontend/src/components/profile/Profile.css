@@ -125,11 +125,28 @@
 }
 
 .profile-description {
+  border-radius: 8px;
   background-color: rgb(25, 30, 36);
   font-size: 1.5em;
   height: 80%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .NavigationBar {
   width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .profile-img {
+    margin: 0px;
+  }
+
+  .profile-img > img {
+    width: 80px;
+  }
+
+  .account-info {
+    display: block;
+  }
 }
