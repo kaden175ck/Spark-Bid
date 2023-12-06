@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSparkBidContext } from "../lib/SparkBidStore";
 import useAuth from '../lib/auth-hook';
 import './UserProfile.css';
+import { getPublicUrl } from '../lib/utils';
 
 const UserProfile = () => {
     const { session, loading } = useAuth();
@@ -44,8 +45,8 @@ const UserProfile = () => {
                 <section className='personal-info'>
                     <h2>PERSONAL INFO</h2>
                     <h4>NAME: {activeUser?.name ?? "ERROR"}</h4>
-                    <p>PHONE: </p>
-                    <p>EMAIL: {activeUser?.email ?? "ERROR"}</p>
+                    <p>PHONE: {activeUser?.phone ?? "___"}</p>
+                    <p>EMAIL: {activeUser?.email ?? "___"}</p>
                 </section>
                 <section className='about'>
                     <h2>ABOUT USER</h2>
@@ -63,9 +64,12 @@ const UserProfile = () => {
                             <div key={listing.id} className="my-listing">
                             <h3>{listing.title}</h3>
                             <div className="listing-card">
-                                {listing.images && listing.images.length > 0 && (
+                                {listing.image_ids && listing.image_ids.length > 0 && (
                                     <a href={`/listing/${listing.id}`}>
-                                    <img src={listing.images[0]} alt="An img" />
+                                    <img src={getPublicUrl(
+                          listing.user_id,
+                          listing.image_ids[0]
+                        )} alt="An img" />
                                     </a>
                                 )}
                                 <div className="listing-details">
