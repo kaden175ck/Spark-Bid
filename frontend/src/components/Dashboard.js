@@ -9,6 +9,7 @@ import FeaturedItem from "./home/FeaturedItem";
 import ListingSearch from "./search/ListingSearch";
 import { getPublicUrl } from "../lib/utils";
 import Footer from "./mobile/global/footer/Footer";
+import NavigationBar from "./global/NavigationBar";
 
 function Dashboard() {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
@@ -56,6 +57,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
+      <NavigationBar />
       <nav className="dashboard-nav">
         <img src="/SparkBid.png" alt="SparkBid Logo" className="logo" />
         <button onClick={() => navigate("/home")}>

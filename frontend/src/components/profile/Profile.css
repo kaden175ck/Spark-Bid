@@ -1,127 +1,155 @@
-.profile-page-container, .user-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.profile-page-container,
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.listings, .profile-bids, .profile-subscribed, .profile-previous-bids {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    width: 80vw;
+.listings,
+.profile-bids,
+.profile-subscribed,
+.profile-previous-bids {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 80vw;
 }
 
-.user-listings, .profile-listings {
-    width: 100%;
-    display: flex;
-    gap: 20px;
+.user-listings,
+.profile-listings {
+  width: 100%;
+  display: flex;
+  gap: 20px;
 }
 
 .user-listings {
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
 }
 
 .profile-listings {
-    flex-wrap: wrap;
-    padding-bottom: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
 }
-  
+
 .my-listings-content {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 10px;
-    max-width: var(--desktop-width);
-    width: 100%;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  max-width: var(--desktop-width);
+  width: 100%;
+  margin: auto;
 }
 
 .my-listings-content h2 {
-    margin: 0px;
+  margin: 0px;
 }
 
 .my-listings-header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .my-listing {
-    display: flex;
-    flex-basis: calc(50% - 10px);
-    flex-direction: column;
-    width: min-content;
+  display: flex;
+  flex-basis: calc(50% - 10px);
+  flex-direction: column;
+  width: min-content;
 }
 
 .my-listing .listing-card {
-    background-color: var(--base-200);
-    border-radius: 16px;
-    display: flex;
+  background-color: var(--base-200);
+  border-radius: 16px;
+  display: flex;
 }
 
 .my-listing .listing-details {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 5px;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 5px;
+  padding: 10px;
 }
 
 .my-listing h3 {
-    margin: 5px;
+  margin: 5px;
 }
 
 .my-listing p {
-    flex-grow: 1;
-    margin: 3px;
+  flex-grow: 1;
+  margin: 3px;
 }
 
 .my-listing img {
-    max-width: 256px;
-    height: 196px;
-    object-fit: cover;
-    border-radius: 16px;
+  max-width: 256px;
+  height: 196px;
+  object-fit: cover;
+  border-radius: 16px;
 }
 
 .my-listing .stats {
-    display: flex;
-    justify-content: space-between;
-    color: var(--success);
+  display: flex;
+  justify-content: space-between;
+  color: var(--success);
 }
 
-.listings-button, .bids-button, .subscribed-button, .bid-history-button {
-    min-height: 35px;
-    width: 300px;
+.listings-button,
+.bids-button,
+.subscribed-button,
+.bid-history-button {
+  min-height: 35px;
+  width: 300px;
 }
 
 .profile-img {
-    font-size: 5em;
+  font-size: 5em;
 }
 
 .account-info {
-    display: grid;
-    grid-template-areas: 
-    'profile-image about'
-    'personal about';
-    grid-template-columns: 1fr 5fr;
-    grid-template-rows: 1fr 1fr;
-    width: 80vw;
+  display: grid;
+  grid-template-areas:
+    "profile-image about"
+    "personal about";
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 1fr;
+  width: 80vw;
 }
 
 .personal-info {
-    grid-area: personal;
+  grid-area: personal;
 }
 
 .about {
-    grid-area: about;
+  grid-area: about;
 }
 
 .profile-description {
-    background-color: rgb(25, 30, 36);
-    font-size: 1.5em;
-    height: 80%;
+  border-radius: 8px;
+  background-color: rgb(25, 30, 36);
+  font-size: 1.5em;
+  height: 80%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .NavigationBar {
-    width: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .profile-img {
+    margin: 0px;
+  }
+
+  .profile-img > img {
+    width: 80px;
+  }
+
+  .account-info {
+    display: block;
+  }
+  .profile-description {
+    font-size: 1em;
+  }
 }

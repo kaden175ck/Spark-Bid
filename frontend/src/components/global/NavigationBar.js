@@ -60,12 +60,16 @@ function NavigationBar() {
       </section>
       <section className="mobile-content">
         <h3>
-          {location.pathname === "/home"
-            ? "Dashboard"
-            : location.pathname === "/my-listings"
-            ? "Featured Items"
-            : location.pathname === "/profile"
-            ? `${activeUser?.name}'s Profile`
+          {location.pathname.startsWith("/home")
+            ? `Hello ${activeUser?.name}`
+            : location.pathname.startsWith("/my-listings")
+            ? "Featured items"
+            : location.pathname.startsWith("/listing")
+            ? "Listing page"
+            : location.pathname.startsWith("/profile")
+            ? `${activeUser?.name}'s profile`
+            : location.pathname.startsWith("/search")
+            ? "Search page"
             : ""}
         </h3>
         <section id="nav-logout" style={{ marginLeft: "auto" }}>
