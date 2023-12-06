@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import "./ListingWizard.css";
 import { v4 as uuid } from "uuid";
 import { supabase_client } from "../lib/supabase-client";
-import { compressImage, getPublicUrl } from "../lib/utils";
+import {
+  compressImage,
+  formatDateForLocal,
+  getPublicUrl,
+  toUTCFormat,
+} from "../lib/utils";
 import useAuth from "../lib/auth-hook";
 
 const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
@@ -28,7 +33,9 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
       start_price: editListing.start_price || "",
       increment: editListing.increment || "",
       image_ids: editListing.image_ids || [],
-      finish_at: editListing.finish_at || new Date(),
+      finish_at: editListing.finish_at
+        ? formatDateForLocal(editListing.finish_at)
+        : new Date().toISOString().slice(0, 16),
     });
   }, [editListing, user_id]);
 
@@ -45,7 +52,11 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === "finish_at") {
+      setFormData({ ...formData, [name]: toUTCFormat(value) });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleFileUpload = async (e) => {
@@ -117,7 +128,7 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
         start_price: formData.start_price,
         increment: formData.increment,
         image_ids: formData.image_ids,
-        finish_at: new Date(),
+        finish_at: formData.finish_at,
       })
       .select();
     return { data, error };
@@ -133,7 +144,7 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
         </span>
         <div className="listing-modal">
           <form onSubmit={handleSubmit}>
-            <h2>Create Auction Listing</h2>
+            <h2>{editListing ? "Edit" : "Create"} Auction Listing</h2>
             <input
               type="text"
               name="title"
@@ -165,6 +176,13 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
               onChange={handleFormChange}
               required // Make increment amount required
             />
+            <input
+              type="datetime-local"
+              name="finish_at"
+              value={formatDateForLocal(formData.finish_at)}
+              onChange={handleFormChange}
+              required
+            />
             <div className="images">
               {formData.image_ids.length > 0 ? (
                 formData.image_ids.map((image_id, index) => (
@@ -194,11 +212,11 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
               onChange={handleFileUpload}
               accept="image/*" // Accept only image files
             />
-            <button type="submit" data-primary>
-              {!editListing ? "Create Listing" : "Save Changes"}
-            </button>
             <button type="button" onClick={onClose}>
               Cancel
+            </button>
+            <button type="submit" data-primary>
+              {!editListing ? "Create Listing" : "Save Changes"}
             </button>
           </form>
         </div>
