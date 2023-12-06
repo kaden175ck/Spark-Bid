@@ -8,13 +8,13 @@ import { useSparkBidContext } from "../lib/SparkBidStore";
 import FeaturedItem from "./home/FeaturedItem";
 import ListingSearch from "./search/ListingSearch";
 import { getPublicUrl } from "../lib/utils";
+import Footer from "./mobile/global/footer/Footer";
 
 function Dashboard() {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
 
   const navigate = useNavigate();
 
-  
   const handleLogout = async () => {
     const { error } = await supabase_client.auth.signOut();
     console.log(error);
@@ -122,6 +122,7 @@ function Dashboard() {
         onClose={closeModal}
         editListing={selectedListing}
       />
+      <Footer />
     </div>
   );
 }

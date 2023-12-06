@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.listings {
+.listings, .profile-bids, .profile-subscribed, .profile-previous-bids {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -81,7 +81,7 @@
     color: var(--success);
 }
 
-.listings-button {
+.listings-button, .bids-button, .subscribed-button, .bid-history-button {
     min-height: 35px;
     width: 300px;
 }
