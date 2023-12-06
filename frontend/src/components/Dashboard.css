@@ -160,7 +160,4 @@ a:active {
     justify-content: space-between;
     min-height: 100dvh;
   }
-  .NavigationBar {
-    display: none;
-  }
 }
