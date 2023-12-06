@@ -14,7 +14,8 @@ import UserBids from "./components/UserBids";
 import MyListings from "./components/my-listings/MyListings";
 import ListingPage from "./components/listing/ListingPage";
 import SearchPage from "./components/search/SearchPage";
-import UserProfile from "./components/UserProfile";
+import UserProfile from "./components/profile/UserProfile";
+import ProfilePage from "./components/profile/ProfilePage";
 
 function App() {
   const { session, loading } = useAuth();
@@ -49,6 +50,10 @@ function App() {
           <Route
             path="/profile"
             element={session ? <UserProfile /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/:user_id"
+            element={session ? <ProfilePage /> : <Navigate to="/login" />}
           />
           <Route
             path="/search"

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import NavigationBar from './global/NavigationBar';
+import NavigationBar from '../global/NavigationBar';
 import { useNavigate } from 'react-router-dom';
-import { useSparkBidContext } from "../lib/SparkBidStore";
-import useAuth from '../lib/auth-hook';
-import './UserProfile.css';
-import { getPublicUrl } from '../lib/utils';
+import { useSparkBidContext } from "../../lib/SparkBidStore";
+import useAuth from '../../lib/auth-hook';
+import './Profile.css';
+import { getPublicUrl } from '../../lib/utils';
 
 const UserProfile = () => {
     const { session, loading } = useAuth();
@@ -34,7 +34,7 @@ const UserProfile = () => {
     const activeUser = sparkUsers[user_id];
 
     return (
-        <div className='user-profile-container'>
+        <div className='profile-page-container'>
             <NavigationBar />
 
             <section class='account-info'>
@@ -58,7 +58,7 @@ const UserProfile = () => {
 
             <section className='listings'>
                 <h1>My Listings</h1>
-                <section className='profile-listings'>
+                <section className='user-listings'>
                     {userAuctionListings.length > 0 ? (
                         userAuctionListings.slice(0, 3).map((listing) => (
                             <div key={listing.id} className="my-listing">

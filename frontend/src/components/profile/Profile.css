@@ -1,4 +1,4 @@
-.user-profile-container {
+.profile-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,11 +12,19 @@
     width: 80vw;
 }
 
-.profile-listings {
+.user-listings, .profile-listings {
     width: 100%;
     display: flex;
-    flex-wrap: nowrap;
     gap: 20px;
+}
+
+.user-listings {
+    flex-wrap: nowrap;
+}
+
+.profile-listings {
+    flex-wrap: wrap;
+    padding-bottom: 20px;
 }
   
 .my-listings-content {
@@ -112,4 +120,8 @@
     background-color: rgb(25, 30, 36);
     font-size: 1.5em;
     height: 80%;
+}
+
+.NavigationBar {
+    width: 100%;
 }
