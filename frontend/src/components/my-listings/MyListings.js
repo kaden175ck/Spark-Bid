@@ -8,6 +8,7 @@ import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import { getPublicUrl } from "../../lib/utils";
+import Footer from "../mobile/global/footer/Footer";
 
 function MyListings() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -134,6 +135,7 @@ function MyListings() {
         onClose={closeModal}
         editListing={selectedListing}
       />
+      <Footer />
     </div>
   );
 }
