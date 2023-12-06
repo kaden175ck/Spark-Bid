@@ -13,6 +13,7 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
+  
   const handleLogout = async () => {
     const { error } = await supabase_client.auth.signOut();
     console.log(error);

@@ -1,9 +1,16 @@
 import ListingSearch from "../search/ListingSearch";
 import "./NavigationBar.css";
 import { useNavigate } from "react-router-dom";
+import { supabase_client } from "../../lib/supabase-client";
 
 function NavigationBar() {
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const { error } = await supabase_client.auth.signOut();
+    console.log(error);
+    navigate("/login"); // Redirect to login after logout
+  };
 
   return (
     <div className="NavigationBar">
@@ -31,7 +38,12 @@ function NavigationBar() {
         <ListingSearch></ListingSearch>
       </section>
       <section id="nav-profile">
-        <i className="fa-solid fa-user button"></i>
+        <i className="fa-solid fa-user button" onClick={() => navigate('/profile')}></i>
+      </section>
+      <section id="nav-logout">
+          <i className="fa-solid fa-right-from-bracket button"
+          onClick={handleLogout}
+        ></i>
       </section>
     </div>
   );
