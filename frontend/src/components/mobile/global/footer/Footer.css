@@ -30,7 +30,7 @@ button {
 @media screen and (max-width: 800px) {
   .Footer {
     display: flex;
-    width: 90vw;
+    /* width: 90vw; */
     padding: 5vw;
     height: 10vw;
   }
