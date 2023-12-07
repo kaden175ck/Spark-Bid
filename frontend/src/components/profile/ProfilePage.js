@@ -50,7 +50,7 @@ const ProfilePage = () => {
 
     const myUser = sparkUsers[session?.user?.id];
 
-    const is_subscribed = myUser?.subscribed_to.includes(user_id);
+    const is_subscribed = myUser?.subscribed_to?.includes(user_id);
 
     setIsSubscribed(is_subscribed);
   }, [sparkUsers, user_id, is_my_profile, session]);
