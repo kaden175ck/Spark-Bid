@@ -50,3 +50,9 @@
   flex-basis: 60%;
   flex-grow: 1;
 }
+
+@media screen and (max-width: 800px) {
+  .bid-panel-container .bid-panel {
+    flex-direction: column;
+  }
+}

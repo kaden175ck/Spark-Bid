@@ -78,3 +78,25 @@
   padding: 10px;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 800px) {
+  .featured-content-container {
+    width: 90vw;
+  }
+
+  .featured-content-container .featured-swiper {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+  }
+
+  .featured-content-container .featured-details {
+    padding: 10px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.2em;
+    background-color: var(--base-300);
+  }
+}

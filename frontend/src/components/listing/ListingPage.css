@@ -108,3 +108,11 @@
   border-radius: 8px;
   background-color: var(--base-200);
 }
+
+@media screen and (max-width: 800px) {
+  .listing-page {
+    width: 90vw;
+    padding: 5vw;
+    padding-bottom: 25vw;
+  }
+}

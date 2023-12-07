@@ -32,5 +32,6 @@ button {
     display: flex;
     width: 90vw;
     padding: 5vw;
+    height: 10vw;
   }
 }
