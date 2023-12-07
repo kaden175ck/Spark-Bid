@@ -42,7 +42,7 @@ function NavigationBar() {
               onClick={() => navigate("/subscribed-page")}
             >
               <i className="fa-solid fa-newspaper"></i>
-              Seller
+              Subscribed
             </div>
           </section>
           <section id="nav-search">

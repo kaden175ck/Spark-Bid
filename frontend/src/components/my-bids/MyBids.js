@@ -60,7 +60,7 @@ function MyBids() {
         <div className="my-bids">
           {userAuctionBidListings.length > 0 ? (
             userAuctionBidListings.map((listing) => (
-              <ListingCard listing={listing} />
+              <ListingCard key={listing.id} listing={listing} />
             ))
           ) : (
             <p>You have no bids</p>
