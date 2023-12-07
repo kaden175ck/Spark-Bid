@@ -7,6 +7,7 @@ import "./ProfilePage.css";
 import { getPublicUrl } from "../../lib/utils";
 import Footer from "../mobile/global/footer/Footer";
 import { callServerDbHandler } from "../../lib/fetchServer";
+import ListingCard from "../global/ListingCard";
 
 const ProfilePage = () => {
   const { session, loading } = useAuth();
@@ -141,34 +142,7 @@ const ProfilePage = () => {
         <section className="profile-listings">
           {profileAuctionListings.length > 0 ? (
             profileAuctionListings.map((listing) => (
-              <div key={listing.id} className="my-listing">
-                <h3>{listing.title}</h3>
-                <div className="listing-card">
-                  {listing.image_ids && listing.image_ids.length > 0 && (
-                    <a href={`/listing/${listing.id}`}>
-                      <img
-                        src={getPublicUrl(
-                          listing.user_id,
-                          listing.image_ids[0]
-                        )}
-                        alt="An img"
-                      />
-                    </a>
-                  )}
-                  <div className="listing-details">
-                    <p>{listing.description}</p>
-                    <div className="stats">
-                      <span className="current-bid">
-                        Current Bid:
-                        {highestBidMap[listing.id]
-                          ? `$${highestBidMap[listing.id].amount}`
-                          : "No bids"}
-                      </span>
-                    </div>
-                    <h4>STATUS: UNSOLD</h4>
-                  </div>
-                </div>
-              </div>
+              <ListingCard key={listing.id} listing={listing}></ListingCard>
             ))
           ) : (
             <p>user has no listings</p>
