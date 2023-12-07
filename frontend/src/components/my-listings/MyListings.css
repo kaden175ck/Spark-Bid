@@ -39,10 +39,6 @@
 }
 
 @media screen and (max-width: 800px) {
-  .NavigationBar {
-    display: none;
-  }
-
   .my-listings,
   .my-listing,
   .listing-card {

@@ -10,7 +10,7 @@
   padding: 20px;
   gap: 10px;
   max-width: var(--desktop-width);
-  width: 100%;
+  /* width: 100%; */
   margin: auto;
 }
 
@@ -42,22 +42,22 @@
   align-items: center;
 }
 
-.my-bids-container .listing-card img {
+/* .my-bids-container .listing-card img {
   margin-left: 40px;
   max-width: 256px;
   height: 196px;
   object-fit: cover;
   border-radius: 16px;
   margin-bottom: 20px;
-}
+} */
 
-.my-bids-container .listing-card p {
+/* .my-bids-container .listing-card p {
   margin: 3px;
   font-size: 1em;
   width: 200px;
   padding-bottom: 20px;
   margin-top: 20px;
-}
+} */
 
 .my-bids-container .item-description {
   width: 200px;

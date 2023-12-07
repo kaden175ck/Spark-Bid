@@ -81,8 +81,10 @@ function ListingCard({ children, listing }) {
         </a>
       )}
       <div className="listing-card-body">
-        <h3>{listing.title}</h3>
-        <p>{listing.description}</p>
+        <div style={{ marginBottom: 30 }}>
+          <h3>{listing.title}</h3>
+          <p className="listing-description">{listing.description}</p>
+        </div>
         <div className="listing-card-detail listing-card-green">
           <span>Highest Bid:</span>
           <span>

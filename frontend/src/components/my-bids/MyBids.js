@@ -9,9 +9,9 @@ import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import { getPublicUrl } from "../../lib/utils";
 import ListingCard from "../global/ListingCard";
+import Footer from "../mobile/global/footer/Footer";
 
 function MyBids() {
-
   const { session, loading } = useAuth();
 
   const user_id = session?.user?.id;
@@ -23,18 +23,18 @@ function MyBids() {
   useEffect(() => {
     // Filter auctionBids based on user_id
     const filteredBids = auctionBids.reduce((bids, bid) => {
-        if(bid.user_id != user_id) return bids
-        const index = bids.findIndex(b => b.listing_id === bid.listing_id)
-        if(index > 0 && bid.amount > bids[index].amount)
-        bids[index] = bid
-        else if (index == -1)
-        bids.push(bid)
-        return bids
-        }, [])
-        
-        const listingIds = filteredBids.map(b => b.listing_id)
-        
-        const myBidListings = auctionListings.filter(l => listingIds.includes(l.id))
+      if (bid.user_id != user_id) return bids;
+      const index = bids.findIndex((b) => b.listing_id === bid.listing_id);
+      if (index > 0 && bid.amount > bids[index].amount) bids[index] = bid;
+      else if (index == -1) bids.push(bid);
+      return bids;
+    }, []);
+
+    const listingIds = filteredBids.map((b) => b.listing_id);
+
+    const myBidListings = auctionListings.filter((l) =>
+      listingIds.includes(l.id)
+    );
     console.log(myBidListings);
     setUserAuctionBidListings(myBidListings);
   }, [auctionBids, user_id]);
@@ -47,10 +47,10 @@ function MyBids() {
     navigate("/login"); // Redirect to login after logout
   };
 
-//   const highest_bid = bids.reduce(
-//     (max, bid) => (bid.amount > max.amount ? bid : max),
-//     bids[0]
-//   );
+  //   const highest_bid = bids.reduce(
+  //     (max, bid) => (bid.amount > max.amount ? bid : max),
+  //     bids[0]
+  //   );
 
   return (
     <div className="my-bids-container">
@@ -63,13 +63,14 @@ function MyBids() {
         <div className="my-bids">
           {userAuctionBidListings.length > 0 ? (
             userAuctionBidListings.map((listing) => (
-                <ListingCard listing={listing} />
+              <ListingCard listing={listing} />
             ))
           ) : (
             <p>You have no bids</p>
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
