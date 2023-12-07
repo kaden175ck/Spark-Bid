@@ -29,6 +29,11 @@ app.use(supabaseMiddleware);
 
 console.log("Starting server...");
 
+app.post("/api/data", (req, res) => {
+  console.log(req.body);
+  return res.status(200);
+});
+
 app.get("/", (req, res) => {
   res.send("Server is running!");
 });

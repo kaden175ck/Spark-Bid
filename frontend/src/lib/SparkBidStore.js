@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase_client } from "./supabase-client";
+import { callServerDbHandler } from "./fetchServer";
 
 // Creating a Context for the auction listings
 const SparkBidContext = createContext();
@@ -10,6 +11,10 @@ export const SparkBidContextProvider = ({ children }) => {
 
   // Function to fetch auction listings
   const fetchAuctionListings = async () => {
+    const response = callServerDbHandler({
+      from: "auction_listing",
+      select: "*",
+    });
     let { data: auction_listing, error } = await supabase_client
       .from("auction_listing")
       .select("*");
