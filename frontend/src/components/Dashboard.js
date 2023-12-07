@@ -10,6 +10,7 @@ import ListingSearch from "./search/ListingSearch";
 import { getPublicUrl } from "../lib/utils";
 import Footer from "./mobile/global/footer/Footer";
 import NavigationBar from "./global/NavigationBar";
+import ListingCard from "./global/ListingCard";
 
 function Dashboard() {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
@@ -103,35 +104,7 @@ function Dashboard() {
         <div className="my-listings">
           {popularListings.length > 0 ? (
             popularListings.map((listing) => (
-              <a
-                href={`/listing/${listing.id}`}
-                data-nostyle
-                key={listing.id}
-                className="listing"
-              >
-                <h3>{listing.title}</h3>
-                {listing.image_ids && listing.image_ids.length > 0 && (
-                  <img
-                    src={getPublicUrl(listing.user_id, listing.image_ids[0])}
-                    alt="An img"
-                  />
-                )}
-                <p>{listing.description}</p>
-                <div className="details">
-                  <span className="start-price">
-                    Highest Bid:{" "}
-                    {highestBidMap[listing.id]
-                      ? `$${highestBidMap[listing.id].amount}`
-                      : "No Bids"}
-                  </span>
-                  <span className="start-price">
-                    Starting: ${listing.start_price}
-                  </span>
-                  <span className="increment">
-                    Increment: +${listing.increment}
-                  </span>
-                </div>
-              </a>
+              <ListingCard listing={listing}></ListingCard>
             ))
           ) : (
             <p>You have no listings</p>
