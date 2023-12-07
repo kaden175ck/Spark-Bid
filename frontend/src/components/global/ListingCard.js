@@ -7,10 +7,10 @@ import ListingWizard from "./../ListingWizard";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
-import { getPublicUrl } from "../../lib/utils";
+import { formatDateForLocal, getPublicUrl } from "../../lib/utils";
 import Footer from "../mobile/global/footer/Footer";
 
-function ListingCard({ listing }) {
+function ListingCard({ children, listing }) {
   const { session, loading } = useAuth();
 
   const user_id = session?.user?.id;
@@ -53,10 +53,46 @@ function ListingCard({ listing }) {
 
   const navigate = useNavigate();
 
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    // Function to calculate time left
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const finishTime = new Date(formatDateForLocal(listing.finish_at));
+      const difference = finishTime - now;
+
+      let timeLeft = {};
+      if (difference > 0) {
+        timeLeft = {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        };
+      }
+      return timeLeft;
+    };
+
+    // Update the time left immediately and every second
+    const updateTimer = () => {
+      const time = calculateTimeLeft();
+      const formattedTime = `${time.days || 0}d ${time.hours || 0}h ${
+        time.minutes || 0
+      }m ${time.seconds || 0}s`;
+      setTimeLeft(formattedTime);
+    };
+
+    updateTimer();
+    const intervalId = setInterval(updateTimer, 1000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [listing.finish_at]);
+
   if (!listing) return <div>Invalid Listing...</div>;
   return (
-    <div className="listing">
-      <h3>{listing.title}</h3>
+    <div className="listing-card">
       {listing.image_ids && listing.image_ids.length > 0 && (
         <a href={`/listing/${listing.id}`} data-nostyle>
           <img
@@ -65,17 +101,36 @@ function ListingCard({ listing }) {
           />
         </a>
       )}
-      <p>{listing.description}</p>
-      <div className="details">
-        <span className="start-price">
-          Highest Bid:{" "}
-          {highestBidMap[listing.id]
-            ? `$${highestBidMap[listing.id].amount}`
-            : "No Bids"}
-        </span>
-        <span className="start-price">Starting: ${listing.start_price}</span>
-        <span className="increment">Increment: +${listing.increment}</span>
+      <div className="listing-card-body">
+        <h3>{listing.title}</h3>
+        <p>{listing.description}</p>
+        <div className="listing-card-detail listing-card-green">
+          <span>Highest Bid:</span>
+          <span>
+            {highestBidMap[listing.id]
+              ? `$${highestBidMap[listing.id].amount}`
+              : "No Bids"}
+          </span>
+        </div>
+        <div className="listing-card-detail listing-card-green">
+          <span>Starting:</span>
+          <span>${listing.start_price}</span>
+        </div>
+        <div className="listing-card-detail listing-card-green">
+          <span>Increment: </span>
+          <span>+${listing.increment}</span>
+        </div>
+        <div className="listing-card-detail listing-card-red">
+          <span>Time Left </span>
+          <span>{timeLeft}</span>
+        </div>
+        {listing.is_sold && (
+          <div className="sold-overlay">
+            <span className="overlay-text">SOLD</span>
+          </div>
+        )}
       </div>
+      <div>{children}</div>
     </div>
   );
 }

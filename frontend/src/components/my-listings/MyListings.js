@@ -8,6 +8,7 @@ import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import { getPublicUrl } from "../../lib/utils";
+import ListingCard from "../global/ListingCard";
 import Footer from "../mobile/global/footer/Footer";
 
 function MyListings() {
@@ -89,41 +90,16 @@ function MyListings() {
         <div className="my-listings">
           {userAuctionListings.length > 0 ? (
             userAuctionListings.map((listing) => (
-              <div key={listing.id} className="my-listing">
-                <h3>{listing.title}</h3>
-                <div className="listing-card">
-                  {listing.image_ids && listing.image_ids.length > 0 && (
-                    <a href={`/listing/${listing.id}`}>
-                      <img
-                        src={getPublicUrl(
-                          listing.user_id,
-                          listing.image_ids[0]
-                        )}
-                        alt="An img"
-                      />
-                    </a>
-                  )}
-                  <div className="listing-details">
-                    <p>{listing.description}</p>
-                    <div className="stats">
-                      <span className="start-price">
-                        Starting: ${listing.start_price}
-                      </span>
-                      <span className="increment">
-                        Increment: +${listing.increment}
-                      </span>
-                    </div>
-                    <div className="actions">
-                      <button onClick={() => openModal(listing)}>
-                        <i className="fa-solid fa-pen-to-square"></i> Edit
-                      </button>
-                      <button onClick={() => deleteListing(listing.id)}>
-                        <i className="fa-solid fa-trash-can"></i> Delete
-                      </button>
-                    </div>
-                  </div>
+              <ListingCard listing={listing}>
+                <div className="actions">
+                  <button onClick={() => openModal(listing)}>
+                    <i className="fa-solid fa-pen-to-square"></i> Edit
+                  </button>
+                  <button onClick={() => deleteListing(listing.id)}>
+                    <i className="fa-solid fa-trash-can"></i> Delete
+                  </button>
                 </div>
-              </div>
+              </ListingCard>
             ))
           ) : (
             <p>You have no listings</p>

@@ -24,6 +24,7 @@ function Dashboard() {
     }, {});
 
     const popularListings = auctionListings
+      .filter((l) => !l.is_sold)
       .toSorted((l1, l2) => {
         const bidCount1 = bidCountByListingId[l1.id] || 0; // Assumes 0 if ID not found
         const bidCount2 = bidCountByListingId[l2.id] || 0; // Assumes 0 if ID not found
@@ -103,9 +104,7 @@ function Dashboard() {
         <h2>Popular Listings</h2>
         <div className="my-listings">
           {popularListings.length > 0 ? (
-            popularListings.map((listing) => (
-              <ListingCard listing={listing}></ListingCard>
-            ))
+            popularListings.map((listing) => <ListingCard listing={listing} />)
           ) : (
             <p>You have no listings</p>
           )}
