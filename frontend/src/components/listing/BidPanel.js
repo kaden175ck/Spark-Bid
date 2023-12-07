@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import "./BidPanel.css";
-import { supabase_client } from "../../lib/supabase-client";
-import { callServerDbHandler, fetchServer } from "../../lib/fetchServer";
-import ListingWizard from "../ListingWizard";
+import { callServerDbHandler } from "../../lib/fetchServer";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
-import FeaturedItem from "../home/FeaturedItem";
-import NavigationBar from "../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 
 function BidPanel({ listing_id }) {

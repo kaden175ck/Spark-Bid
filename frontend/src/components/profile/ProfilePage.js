@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import NavigationBar from "../global/NavigationBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import useAuth from "../../lib/auth-hook";
 import "./ProfilePage.css";
 import { getPublicUrl } from "../../lib/utils";
 import Footer from "../mobile/global/footer/Footer";
-import { supabase_client } from "../../lib/supabase-client";
 import { callServerDbHandler } from "../../lib/fetchServer";
 
 const ProfilePage = () => {

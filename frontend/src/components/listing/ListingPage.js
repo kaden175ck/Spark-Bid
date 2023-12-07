@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./ListingPage.css";
-import { supabase_client } from "../../lib/supabase-client";
-import { fetchServer } from "../../lib/fetchServer";
 import ListingWizard from "../ListingWizard";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import FeaturedItem from "../home/FeaturedItem";

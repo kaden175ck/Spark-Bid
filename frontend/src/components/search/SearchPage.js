@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./SearchPage.css";
-import { supabase_client } from "../../lib/supabase-client";
-import { fetchServer } from "../../lib/fetchServer";
-import ListingWizard from "../ListingWizard";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
-import FeaturedItem from "../home/FeaturedItem";
 import NavigationBar from "../global/NavigationBar";
-import useAuth from "../../lib/auth-hook";
 import { getPublicUrl } from "../../lib/utils";
 import Footer from "../mobile/global/footer/Footer";
 

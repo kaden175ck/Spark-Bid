@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { supabase_client } from "../lib/supabase-client";
-import { fetchServer } from "../lib/fetchServer";
-import ListingWizard from "./ListingWizard";
 import { useSparkBidContext } from "../lib/SparkBidStore";
 import FeaturedItem from "./home/FeaturedItem";
 import ListingSearch from "./search/ListingSearch";
-import { getPublicUrl } from "../lib/utils";
 import Footer from "./mobile/global/footer/Footer";
-import NavigationBar from "./global/NavigationBar";
 import ListingCard from "./global/ListingCard";
 
 function Dashboard() {
