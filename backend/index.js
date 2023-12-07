@@ -12,7 +12,6 @@ const bodyParser = require("body-parser");
 const app = express();
 
 // Import itemRoutes
-const itemRoutes = require("./itemRoutes");
 const { supabaseMiddleware } = require("./lib/supabase-client");
 
 const PORT = process.env.PORT || 3001;

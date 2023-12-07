@@ -98,15 +98,22 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 512px;
+  overflow: auto;
 }
 
 .bid-history .history-item {
   display: flex;
-  width: 500px;
+  box-sizing: border-box;
+  width: 100%;
   justify-content: space-between;
   padding: 10px;
   border-radius: 8px;
   background-color: var(--base-200);
+}
+
+.bid-history .history-item .bid-amount {
+  color: var(--success);
 }
 
 @media screen and (max-width: 800px) {

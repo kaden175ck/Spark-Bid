@@ -34,7 +34,9 @@ function ListingPage() {
   }, [auctionListings, listing_id]);
 
   useEffect(() => {
-    const bids = auctionBids.filter((bid) => bid.listing_id === listing_id);
+    const bids = auctionBids
+      .filter((bid) => bid.listing_id === listing_id)
+      .sort((b1, b2) => b2.amount - b1.amount);
 
     const highest_bid = bids.reduce(
       (max, bid) => (bid.amount > max.amount ? bid : max),
@@ -82,13 +84,15 @@ function ListingPage() {
             </div>
           )}
         </div>
+        <h3>History</h3>
         <div className="bid-history">
-          History
           {listingBids.length > 0 ? (
             listingBids.map((bid) => (
               <div key={bid.id} className="history-item">
-                <div>{sparkUsers[bid.user_id]?.name ?? "Unknown User"}</div>
-                <div>{bid.amount}</div>
+                <a href={`/profile/${bid.user_id}`} data-nostyle>
+                  <div>{sparkUsers[bid.user_id]?.name ?? "Unknown User"}</div>
+                </a>
+                <div className="bid-amount">${bid.amount}</div>
               </div>
             ))
           ) : (
