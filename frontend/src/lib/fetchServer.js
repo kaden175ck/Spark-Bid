@@ -1,17 +1,6 @@
 import { supabase_client } from "./supabase-client";
 
 export const callServerDbHandler = async (options) => {
-  // fetch("http://localhost:3001/api/data", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     key1: "value1",
-  //     key2: "value2",
-  //     // ... other data
-  //   }),
-  // });
   return await fetchServer("http://localhost:3001/api/data", {
     method: "POST",
     headers: {

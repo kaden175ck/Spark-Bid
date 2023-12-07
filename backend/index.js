@@ -29,113 +29,58 @@ app.use(supabaseMiddleware);
 
 console.log("Starting server...");
 
-app.post("/api/data", (req, res) => {
-  console.log(req.body);
+app.post("/api/data", async (req, res) => {
+  const {
+    storage,
+    from,
+    delete: del,
+    insert,
+    update,
+    select,
+    upsert,
+    remove,
+    upload,
+    eq,
+  } = req.body;
+  // console.log(storage, from, select, upsert, remove, upload);
+  if (storage) {
+    if (remove) {
+      return res
+        .status(200)
+        .json(await supabase.storage.from(from).remove(remove));
+    }
+  } else {
+    if (update && eq) {
+      return res.status(200).json(
+        await supabase
+          .from(from)
+          .update(update)
+          .eq(...eq)
+      );
+    }
+    if (insert) {
+      return res.status(200).json(await supabase.from(from).insert(insert));
+    }
+    if (del) {
+      return res.status(200).json(
+        await supabase
+          .from(from)
+          .delete()
+          .eq(...eq)
+      );
+    }
+    if (upsert && select) {
+      return res
+        .status(200)
+        .json(await supabase.from(from).upsert(upsert).select());
+    }
+    if (select) {
+      return res.status(200).json(await supabase.from(from).select(select));
+    }
+  }
+  console.log(from, select);
   return res.status(200);
 });
-
-app.get("/", (req, res) => {
-  res.send("Server is running!");
-});
-
-async function registerUser(req, res) {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    return res.status(400).send("Missing required fields");
-  }
-
-  try {
-    const { user, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (signUpError) throw signUpError;
-
-    // Do not insert user details into the `users` table here.
-    // Wait for email confirmation first.
-
-    res
-      .status(201)
-      .send({ message: "Check your email to confirm your account", user });
-  } catch (error) {
-    console.error("Registration error:", error);
-    res.status(500).send({ message: error.message });
-  }
-}
-
-app.post("/register", registerUser);
-
-async function confirmUser(req, res) {
-  const { token } = req.body;
-  if (!token) {
-    return res.status(400).send("Token is required");
-  }
-
-  try {
-    const { user, error: confirmError } = await supabase.auth.api.getUser(
-      token
-    );
-    if (confirmError) throw confirmError;
-
-    const username = user.user_metadata.username;
-    const email = user.email;
-
-    const { data, error: insertError } = await supabase
-      .from("users")
-      .insert([{ id: user.id, username, email }]);
-    if (insertError) throw insertError;
-
-    res.status(200).send("User confirmed successfully.");
-  } catch (error) {
-    console.error("Confirmation error:", error);
-    res.status(500).send({ message: error.message });
-  }
-}
-
-app.post("/confirm", confirmUser);
-
-async function loginUser(req, res) {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).send("Email and password are required");
-  }
-
-  try {
-    const { user, session, error } = await supabase.auth.signIn({
-      email,
-      password,
-    });
-    if (error) throw error;
-
-    if (!user) {
-      return res.status(404).send("User not found or not confirmed");
-    }
-
-    res.status(200).send({ session });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(401).send({ message: error.message });
-  }
-}
-
-app.post("/login", loginUser);
-
-async function fetchUsers(req, res) {
-  try {
-    const { data, error } = await supabase.from("users").select("*");
-    if (error) throw error;
-
-    res.status(200).send(data);
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    res.status(500).send({ message: error.message });
-  }
-}
-
-app.get("/users", fetchUsers);
-
-// Use itemRoutes for all item related endpoints
-app.use("/api/items", itemRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);

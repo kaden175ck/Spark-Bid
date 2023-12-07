@@ -104,7 +104,9 @@ function Dashboard() {
         <h2>Popular Listings</h2>
         <div className="popular-listings">
           {popularListings.length > 0 ? (
-            popularListings.map((listing) => <ListingCard listing={listing} />)
+            popularListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
+            ))
           ) : (
             <p>You have no listings</p>
           )}

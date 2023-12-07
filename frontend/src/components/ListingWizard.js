@@ -9,6 +9,7 @@ import {
   toUTCFormat,
 } from "../lib/utils";
 import useAuth from "../lib/auth-hook";
+import { callServerDbHandler } from "../lib/fetchServer";
 
 const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
   const { session, loading } = useAuth();
@@ -67,11 +68,13 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
     for (const file of files) {
       const compressedImage = await compressImage(file);
       const image_id = uuid();
+
       const { error } = await supabase_client.storage
         .from("images")
         .upload(`${formData.user_id}/${image_id}.jpg`, compressedImage, {
           upsert: false,
         });
+
       if (error) console.error(error);
       else images.push(image_id);
     }
@@ -83,9 +86,14 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
 
   const removeImage = async (index) => {
     const image_id = formData.image_ids[index];
-    const { error } = await supabase_client.storage
-      .from("images")
-      .remove([`${formData.user_id}/${image_id}.jpg`]);
+
+    const response = await callServerDbHandler({
+      storage: true,
+      from: "images",
+      remove: [`${formData.user_id}/${image_id}.jpg`],
+    });
+
+    const { error } = await response.json();
 
     if (error) {
       console.error(error);
@@ -118,9 +126,9 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
   };
 
   const saveToDatabase = async () => {
-    let { data, error } = await supabase_client
-      .from("auction_listing")
-      .upsert({
+    const response = await callServerDbHandler({
+      from: "auction_listing",
+      upsert: {
         id: formData.id,
         user_id: formData?.user_id ?? undefined,
         title: formData.title,
@@ -129,8 +137,12 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
         increment: formData.increment,
         image_ids: formData.image_ids,
         finish_at: formData.finish_at,
-      })
-      .select();
+      },
+      select: true,
+    });
+
+    const { data, error } = await response.json();
+
     return { data, error };
   };
 

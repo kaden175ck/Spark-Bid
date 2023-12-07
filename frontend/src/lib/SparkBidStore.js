@@ -11,13 +11,12 @@ export const SparkBidContextProvider = ({ children }) => {
 
   // Function to fetch auction listings
   const fetchAuctionListings = async () => {
-    const response = callServerDbHandler({
+    const response = await callServerDbHandler({
       from: "auction_listing",
       select: "*",
     });
-    let { data: auction_listing, error } = await supabase_client
-      .from("auction_listing")
-      .select("*");
+
+    const { data: auction_listing, error } = await response.json();
 
     if (error) {
       console.error("Error fetching auction listings:", error.details);
@@ -31,9 +30,12 @@ export const SparkBidContextProvider = ({ children }) => {
 
   // Function to fetch auction bids
   const fetchAuctionBids = async () => {
-    let { data: bid_on_listing, error } = await supabase_client
-      .from("bid_on_listing")
-      .select("*");
+    const response = await callServerDbHandler({
+      from: "bid_on_listing",
+      select: "*",
+    });
+
+    const { data: bid_on_listing, error } = await response.json();
 
     if (error) {
       console.error("Error fetching bids on listings:", error.details);
@@ -47,9 +49,12 @@ export const SparkBidContextProvider = ({ children }) => {
 
   // Function to fetch auction bids
   const fetchSparkUsers = async () => {
-    let { data: spark_users, error } = await supabase_client
-      .from("profile")
-      .select("*");
+    const response = await callServerDbHandler({
+      from: "profile",
+      select: "*",
+    });
+
+    const { data: spark_users, error } = await response.json();
 
     if (error) {
       console.error("Error fetching users:", error.details);

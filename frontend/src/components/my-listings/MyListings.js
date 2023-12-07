@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyListings.css";
 import { supabase_client } from "../../lib/supabase-client";
-import { fetchServer } from "../../lib/fetchServer";
+import { callServerDbHandler, fetchServer } from "../../lib/fetchServer";
 import ListingWizard from "./../ListingWizard";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
@@ -62,10 +62,13 @@ function MyListings() {
   // }, []);
 
   const deleteListing = async (listing_id) => {
-    let { error } = await supabase_client
-      .from("auction_listing")
-      .delete()
-      .eq("id", listing_id);
+    const response = await callServerDbHandler({
+      from: "auction_listing",
+      delete: true,
+      eq: ["id", listing_id],
+    });
+
+    const { error } = await response.json();
     if (error) console.error(error);
   };
 
@@ -90,12 +93,18 @@ function MyListings() {
         <div className="my-listings">
           {userAuctionListings.length > 0 ? (
             userAuctionListings.map((listing) => (
-              <ListingCard listing={listing}>
+              <ListingCard key={listing.id} listing={listing}>
                 <div className="actions">
-                  <button className="action-button" onClick={() => openModal(listing)}>
+                  <button
+                    className="action-button"
+                    onClick={() => openModal(listing)}
+                  >
                     <i className="fa-solid fa-pen-to-square"></i> Edit
                   </button>
-                  <button className="action-button" onClick={() => deleteListing(listing.id)}>
+                  <button
+                    className="action-button"
+                    onClick={() => deleteListing(listing.id)}
+                  >
                     <i className="fa-solid fa-trash-can"></i> Delete
                   </button>
                 </div>
