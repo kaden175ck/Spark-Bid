@@ -69,7 +69,7 @@ function Dashboard() {
           <i className="fa-solid fa-gavel"></i>
           Listings
         </button>
-        <button onClick={() => navigate("/home")}>
+        <button onClick={() => navigate("/my-bids")}>
           <i className="fa-solid fa-money-bills"></i>
           Bids
         </button>
