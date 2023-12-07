@@ -1,3 +1,9 @@
+## Docker Setup:
+
+Just run `docker-compose up` from the main directory
+
+## Non-Docker Setup:
+
 ### Environment Setup
 
 1. **Install Git**:

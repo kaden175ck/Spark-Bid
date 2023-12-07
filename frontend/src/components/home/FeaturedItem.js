@@ -10,10 +10,13 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { formatDateForLocal, getPublicUrl, toUTCFormat } from "../../lib/utils";
 
 function FeaturedItem({ listing, bids, users }) {
-  const highest_bid = bids.reduce(
-    (max, bid) => (bid.amount > max.amount ? bid : max),
-    bids[0]
-  );
+  const highest_bid_map = bids.reduce((map, bid) => {
+    if (!map[bid.listing_id] || bid.amount > map[bid.listing_id].amount)
+      map[bid.listing_id] = bid;
+    return map;
+  }, {});
+
+  const highest_bid = highest_bid_map[listing.id];
 
   const listing_user = users[listing.user_id];
 
