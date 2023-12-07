@@ -9,6 +9,7 @@ import FeaturedItem from "../home/FeaturedItem";
 import NavigationBar from "../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import { getPublicUrl } from "../../lib/utils";
+import Footer from "../mobile/global/footer/Footer";
 
 function SearchPage() {
   let { query: urlQuery } = useParams();
@@ -56,6 +57,7 @@ function SearchPage() {
           placeholder="Search..."
           value={searchQuery}
           onChange={handleInputChange}
+          className="mobile-search-bar"
         ></input>
         <div className="search-results">
           {searchedListings.length > 0 ? (
@@ -89,6 +91,7 @@ function SearchPage() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
