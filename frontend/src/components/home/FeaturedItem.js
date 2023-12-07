@@ -112,10 +112,6 @@ function FeaturedItem({ listing, bids, users }) {
           Bids:
           <span>{bid_count}</span>
         </div>
-        <div>
-          Subscribers:
-          <span>{"{listing number of subscribers}"}</span>
-        </div>
       </div>
     </div>
   );
