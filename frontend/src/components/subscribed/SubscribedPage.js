@@ -9,6 +9,7 @@ import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import { getPublicUrl } from "../../lib/utils";
 import Footer from "../mobile/global/footer/Footer";
+import ListingCard from "../global/ListingCard";
 
 function SubscribedPage() {
   const { session, loading } = useAuth();
@@ -54,33 +55,7 @@ function SubscribedPage() {
               <div key={listing_user_id}>
                 <h3>{sparkUsers[listing_user_id].name}</h3>
                 {listingsByUser[listing_user_id].map((listing) => (
-                  <div key={listing.id} className="my-listing">
-                    <h3>{listing.title}</h3>
-                    <div className="listing-card">
-                      {listing.image_ids && listing.image_ids.length > 0 && (
-                        <a href={`/listing/${listing.id}`}>
-                          <img
-                            src={getPublicUrl(
-                              listing.user_id,
-                              listing.image_ids[0]
-                            )}
-                            alt="An img"
-                          />
-                        </a>
-                      )}
-                      <div className="listing-details">
-                        <p>{listing.description}</p>
-                        <div className="stats">
-                          <span className="start-price">
-                            Starting: ${listing.start_price}
-                          </span>
-                          <span className="increment">
-                            Increment: +${listing.increment}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <ListingCard listing={listing} />
                 ))}
               </div>
             ))
