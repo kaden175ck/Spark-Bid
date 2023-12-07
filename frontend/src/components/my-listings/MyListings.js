@@ -61,6 +61,13 @@ function MyListings() {
   // }, []);
 
   const deleteListing = async (listing_id) => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm(
+      "Are you sure you want to delete this listing?"
+    );
+
+    if (!isConfirmed) return;
+
     const response = await callServerDbHandler({
       from: "auction_listing",
       delete: true,
