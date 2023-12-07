@@ -49,6 +49,10 @@
   width: 85vw;
 }
 
+.search-page {
+  padding-top: 10px;
+}
+
 @media screen and (max-width: 800px) {
   .mobile-search-bar {
     position: sticky;
