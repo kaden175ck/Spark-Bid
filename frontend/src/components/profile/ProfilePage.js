@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import NavigationBar from "../global/NavigationBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import useAuth from "../../lib/auth-hook";
 import "./ProfilePage.css";
 import { getPublicUrl } from "../../lib/utils";
 import Footer from "../mobile/global/footer/Footer";
-import { supabase_client } from "../../lib/supabase-client";
+import { callServerDbHandler } from "../../lib/fetchServer";
 
 const ProfilePage = () => {
   const { session, loading } = useAuth();
@@ -64,10 +64,15 @@ const ProfilePage = () => {
       : [];
 
     subscribed_users.push(user_id);
-    const { error } = await supabase_client
-      .from("profile")
-      .update({ subscribed_to: subscribed_users })
-      .eq("id", myUser.id);
+
+    const response = await callServerDbHandler({
+      from: "profile",
+      update: { subscribed_to: subscribed_users },
+      eq: ["id", myUser.id],
+    });
+
+    const { error } = await response.json();
+
     if (error) console.error(error);
   };
 
@@ -82,10 +87,13 @@ const ProfilePage = () => {
     const index = subscribed_users.findIndex((id) => id === user_id);
     if (index >= 0) subscribed_users.splice(index, 1);
 
-    const { error } = await supabase_client
-      .from("profile")
-      .update({ subscribed_to: subscribed_users })
-      .eq("id", myUser.id);
+    const response = await callServerDbHandler({
+      from: "profile",
+      update: { subscribed_to: subscribed_users },
+      eq: ["id", myUser.id],
+    });
+
+    const { error } = await response.json();
     if (error) console.error(error);
   };
 

@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import "./BidPanel.css";
-import { supabase_client } from "../../lib/supabase-client";
-import { fetchServer } from "../../lib/fetchServer";
-import ListingWizard from "../ListingWizard";
+import { callServerDbHandler } from "../../lib/fetchServer";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
-import FeaturedItem from "../home/FeaturedItem";
-import NavigationBar from "../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 
 function BidPanel({ listing_id }) {
   const [formData, setFormData] = useState({
     amount: 0.0,
   });
+
+  const { session, loading } = useAuth();
+  const user_id = session?.user?.id;
 
   const [highestBid, setHighestBid] = useState({});
   const [listingBids, setListingBids] = useState([]);
@@ -62,20 +60,16 @@ function BidPanel({ listing_id }) {
   };
 
   const placeBid = async (amount) => {
-    let { error } = await supabase_client.from("bid_on_listing").insert({
-      listing_id: listing_id,
-      amount: amount,
+    const response = await callServerDbHandler({
+      from: "bid_on_listing",
+      insert: {
+        user_id,
+        listing_id: listing_id,
+        amount: amount,
+      },
     });
-    if (error) console.error(error);
-  };
 
-  const navigate = useNavigate();
-
-  const deleteListing = async (listing_id) => {
-    let { error } = await supabase_client
-      .from("auction_listing")
-      .delete()
-      .eq("id", listing_id);
+    const { error } = await response.json();
     if (error) console.error(error);
   };
 

@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { supabase_client } from "../lib/supabase-client";
-import { fetchServer } from "../lib/fetchServer";
-import ListingWizard from "./ListingWizard";
 import { useSparkBidContext } from "../lib/SparkBidStore";
 import FeaturedItem from "./home/FeaturedItem";
 import ListingSearch from "./search/ListingSearch";
-import { getPublicUrl } from "../lib/utils";
 import Footer from "./mobile/global/footer/Footer";
-import NavigationBar from "./global/NavigationBar";
 import ListingCard from "./global/ListingCard";
 
 function Dashboard() {
@@ -104,7 +100,9 @@ function Dashboard() {
         <h2>Popular Listings</h2>
         <div className="popular-listings">
           {popularListings.length > 0 ? (
-            popularListings.map((listing) => <ListingCard listing={listing} />)
+            popularListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
+            ))
           ) : (
             <p>You have no listings</p>
           )}

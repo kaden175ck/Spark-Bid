@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./ListingPage.css";
-import { supabase_client } from "../../lib/supabase-client";
-import { fetchServer } from "../../lib/fetchServer";
 import ListingWizard from "../ListingWizard";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import FeaturedItem from "../home/FeaturedItem";
@@ -58,22 +56,6 @@ function ListingPage() {
   };
 
   const [userAuctionListings, setUserAuctionListings] = useState([]);
-
-  const navigate = useNavigate();
-
-  const deleteListing = async (listing_id) => {
-    let { error } = await supabase_client
-      .from("auction_listing")
-      .delete()
-      .eq("id", listing_id);
-    if (error) console.error(error);
-  };
-
-  const handleLogout = async () => {
-    const { error } = await supabase_client.auth.signOut();
-    console.log(error);
-    navigate("/login"); // Redirect to login after logout
-  };
 
   if (!activeListing) return <div>Loading...</div>;
 
