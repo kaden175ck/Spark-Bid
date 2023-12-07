@@ -42,7 +42,7 @@ function SubscribedPage() {
       <NavigationBar />
       <div className="my-listings-content">
         <div className="my-listings-header">
-          <h2>My Described Seller</h2>
+          <h2>My Subscribed Sellers</h2>
         </div>
         <div className="divider"></div>
         <div className="my-listings">
