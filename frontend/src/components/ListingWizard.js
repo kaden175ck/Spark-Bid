@@ -53,6 +53,7 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     if (name === "finish_at") {
       setFormData({ ...formData, [name]: toUTCFormat(value) });
     } else {
@@ -174,7 +175,7 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
             />
             <input
               type="number"
-              name="startingPrice"
+              name="start_price"
               placeholder="Starting Price"
               value={formData.start_price}
               onChange={handleFormChange}
@@ -182,7 +183,7 @@ const ListingWizard = ({ isOpen, onClose, onSubmit, editListing }) => {
             />
             <input
               type="number"
-              name="incrementAmount"
+              name="increment"
               placeholder="Increment Amount"
               value={formData.increment}
               onChange={handleFormChange}
