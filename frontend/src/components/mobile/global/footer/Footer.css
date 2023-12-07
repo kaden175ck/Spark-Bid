@@ -33,5 +33,6 @@ button {
     /* width: 90vw; */
     padding: 5vw;
     height: 10vw;
+    box-sizing: border-box;
   }
 }
