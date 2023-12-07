@@ -92,10 +92,10 @@ function MyListings() {
             userAuctionListings.map((listing) => (
               <ListingCard listing={listing}>
                 <div className="actions">
-                  <button onClick={() => openModal(listing)}>
+                  <button className="action-button" onClick={() => openModal(listing)}>
                     <i className="fa-solid fa-pen-to-square"></i> Edit
                   </button>
-                  <button onClick={() => deleteListing(listing.id)}>
+                  <button className="action-button" onClick={() => deleteListing(listing.id)}>
                     <i className="fa-solid fa-trash-can"></i> Delete
                   </button>
                 </div>
