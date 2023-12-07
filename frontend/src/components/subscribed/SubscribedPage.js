@@ -52,7 +52,7 @@ function SubscribedPage() {
                 <h3>{sparkUsers[listing_user_id].name}</h3>
                 <div className="subscribed-user-listings">
                   {listingsByUser[listing_user_id].map((listing) => (
-                    <ListingCard listing={listing} />
+                    <ListingCard key={listing.id} listing={listing} />
                   ))}
                 </div>
               </div>

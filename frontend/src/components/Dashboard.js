@@ -106,8 +106,6 @@ function Dashboard() {
           ) : (
             <p>You have no listings</p>
           )}
-
-          <h2>Subscribed Listings</h2>
         </div>
       </main>
       <nav className="dashboard-nav nav-right">
