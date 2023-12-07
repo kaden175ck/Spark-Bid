@@ -37,12 +37,14 @@ function Footer() {
         Home
       </button>
       <button
-        onClick={() => navigate("/bids")}
-        className={location.pathname.startsWith("/bids") ? "active-button" : ""}
+        onClick={() => navigate("/my-bids")}
+        className={
+          location.pathname.startsWith("/my-bids") ? "active-button" : ""
+        }
       >
         <i className="fa-solid fa-money-bills"></i>
         <br />
-        Bidding
+        Bids
       </button>
       <button
         onClick={() => navigate("/profile")}
