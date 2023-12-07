@@ -21,6 +21,10 @@ button {
   padding: 10px;
 }
 
+.active-button {
+  color: var(--primary);
+}
+
 /* Mobile configuration */
 
 @media screen and (max-width: 800px) {

@@ -14,7 +14,8 @@ import UserBids from "./components/UserBids";
 import MyListings from "./components/my-listings/MyListings";
 import ListingPage from "./components/listing/ListingPage";
 import SearchPage from "./components/search/SearchPage";
-import UserProfile from "./components/UserProfile";
+import ProfilePage from "./components/profile/ProfilePage";
+import SubscribedPage from "./components/subscribed/SubscribedPage";
 import MyBids from "./components/my-bids/MyBids";
 
 function App() {
@@ -49,11 +50,19 @@ function App() {
           />
           <Route
             path="/profile"
-            element={session ? <UserProfile /> : <Navigate to="/login" />}
+            element={session ? <ProfilePage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/:user_id"
+            element={session ? <ProfilePage /> : <Navigate to="/login" />}
           />
           <Route
             path="/search"
             element={session ? <SearchPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/subscribed-page"
+            element={session ? <SubscribedPage /> : <Navigate to="/login" />}
           />
           <Route
             path="/search/:query"

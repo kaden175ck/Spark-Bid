@@ -1,5 +1,11 @@
 .listing-search-container {
+  width: 100%;
   position: relative;
+}
+
+.listing-search-container input {
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .listing-search-container .search-results-modal {

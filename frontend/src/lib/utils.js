@@ -25,3 +25,18 @@ export const getPublicUrl = (user_id, image_id) => {
     .getPublicUrl(`${user_id}/${image_id}.jpg`);
   return publicUrl;
 };
+
+// Converts local datetime to UTC
+export const toUTCFormat = (localDatetime) => {
+  const date = new Date(localDatetime);
+
+  // Convert to UTC and keep the timezone offset
+  const offset = date.getTimezoneOffset();
+  const adjustedDate = new Date(date.getTime() - offset * 60 * 1000);
+  return adjustedDate.toISOString();
+};
+
+// Converts UTC datetime to local format for input field
+export const formatDateForLocal = (utcDatetime) => {
+  return new Date(utcDatetime).toISOString().slice(0, 16);
+};

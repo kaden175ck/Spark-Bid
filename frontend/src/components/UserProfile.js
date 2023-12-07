@@ -5,6 +5,7 @@ import { useSparkBidContext } from "../lib/SparkBidStore";
 import useAuth from "../lib/auth-hook";
 import "./UserProfile.css";
 import { getPublicUrl } from "../lib/utils";
+import Footer from "./mobile/global/footer/Footer";
 
 const UserProfile = () => {
   const { session, loading } = useAuth();
@@ -135,6 +136,7 @@ const UserProfile = () => {
           Bid History
         </button>
       </section>
+      <Footer />
     </div>
   );
 };

@@ -83,6 +83,17 @@ export const SparkBidContextProvider = ({ children }) => {
       )
       .subscribe();
 
+    const profile_channel = supabase_client
+      .channel("profile_channel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "profile" },
+        (payload) => {
+          fetchSparkUsers();
+        }
+      )
+      .subscribe();
+
     // Fetch initial data
     fetchAuctionListings();
     fetchAuctionBids();
@@ -90,6 +101,7 @@ export const SparkBidContextProvider = ({ children }) => {
 
     // Cleanup function
     return () => {
+      profile_channel.unsubscribe();
       listing_channel.unsubscribe();
       bid_channel.unsubscribe();
     };
