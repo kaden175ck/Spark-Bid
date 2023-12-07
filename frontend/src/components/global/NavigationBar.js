@@ -37,7 +37,10 @@ function NavigationBar() {
               <i className="fa-solid fa-money-bills"></i>
               Bids
             </div>
-            <div className="nav-item" onClick={() => navigate("/subscribed-page")}>
+            <div
+              className="nav-item"
+              onClick={() => navigate("/subscribed-page")}
+            >
               <i className="fa-solid fa-newspaper"></i>
               Seller
             </div>
@@ -72,6 +75,8 @@ function NavigationBar() {
             ? `${activeUser?.name}'s profile`
             : location.pathname.startsWith("/search")
             ? "Search page"
+            : location.pathname.startsWith("/my-bids")
+            ? `${activeUser?.name}'s bids`
             : ""}
         </h3>
         <section id="nav-logout" style={{ marginLeft: "auto" }}>
