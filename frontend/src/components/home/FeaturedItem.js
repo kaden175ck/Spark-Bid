@@ -60,11 +60,7 @@ function FeaturedItem({ listing, bids, users }) {
   if (!bids) return <div>Missing bids...</div>;
   if (!users) return <div>Missing users...</div>;
   return (
-    <a
-      href={`/listing/${listing.id}`}
-      data-nostyle
-      className="featured-content-container"
-    >
+    <div className="featured-content-container">
       <Swiper
         navigation={true}
         modules={[Navigation, Pagination, Autoplay]}
@@ -75,11 +71,13 @@ function FeaturedItem({ listing, bids, users }) {
       >
         {(listing.image_ids ?? []).map((image_id, index) => (
           <SwiperSlide key={index} className="slide-item">
-            <img
-              className="swiper-slide-img"
-              src={getPublicUrl(listing.user_id, image_id)}
-              alt={`Slide ${index}`}
-            />
+            <a href={`/listing/${listing.id}`} data-nostyle>
+              <img
+                className="swiper-slide-img"
+                src={getPublicUrl(listing.user_id, image_id)}
+                alt={`Slide ${index}`}
+              />
+            </a>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -88,7 +86,9 @@ function FeaturedItem({ listing, bids, users }) {
         <h3>{listing.title}</h3>
         <div>
           Seller:
-          <span>{listing_user?.name ?? "Unknown User"}</span>
+          <a href={`/profile/${listing_user.id}`}>
+            <span>{listing_user?.name ?? "Unknown User"}</span>
+          </a>
         </div>
         <div>
           Current Bid:
@@ -117,7 +117,7 @@ function FeaturedItem({ listing, bids, users }) {
           <span>{"{listing number of subscribers}"}</span>
         </div>
       </div>
-    </a>
+    </div>
   );
 }
 

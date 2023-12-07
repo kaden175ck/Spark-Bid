@@ -1,0 +1,95 @@
+.my-listings-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.my-listings-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  max-width: var(--desktop-width);
+  width: 100%;
+  margin: auto;
+}
+
+.my-listings-content h2 {
+  margin: 0px;
+}
+
+.my-listings-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.my-listings {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.my-listing {
+  display: flex;
+  flex-basis: calc(50% - 10px);
+  flex-direction: column;
+  width: min-content;
+}
+
+.my-listing .listing-card {
+  background-color: var(--base-200);
+  border-radius: 16px;
+  display: flex;
+}
+
+.my-listing .listing-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 5px;
+  padding: 10px;
+}
+
+.my-listing h3 {
+  margin: 5px;
+}
+
+.my-listing p {
+  flex-grow: 1;
+  margin: 3px;
+}
+
+.my-listing img {
+  max-width: 256px;
+  height: 196px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.my-listing .stats {
+  display: flex;
+  justify-content: space-between;
+  color: var(--success);
+}
+
+.my-listing .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.item {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: left;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+}

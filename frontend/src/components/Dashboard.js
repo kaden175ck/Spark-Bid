@@ -71,7 +71,7 @@ function Dashboard() {
           <i className="fa-solid fa-money-bills"></i>
           Bids
         </button>
-        <button onClick={() => navigate("/home")}>
+        <button onClick={() => navigate("/subscribed-page")}>
           <i className="fa-solid fa-newspaper"></i>
           Subscribed
         </button>
