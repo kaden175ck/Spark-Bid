@@ -16,6 +16,7 @@ import ListingPage from "./components/listing/ListingPage";
 import SearchPage from "./components/search/SearchPage";
 import UserProfile from "./components/profile/UserProfile";
 import ProfilePage from "./components/profile/ProfilePage";
+import SubscribedPage from "./components/subscribed-page/SubscribedPage";
 
 function App() {
   const { session, loading } = useAuth();
@@ -66,6 +67,10 @@ function App() {
           <Route path="/" element={<Navigate replace to="/login" />} />
           <Route path="/listing" element={<UserBids />} />
           {/* Add other routes as needed */}
+          <Route
+            path="/subscribed-page"
+            element={session ? <SubscribedPage /> : <Navigate to="/login" />}
+          />
         </Routes>
       </Router>
     </SparkBidContextProvider>
