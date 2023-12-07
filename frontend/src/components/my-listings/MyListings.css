@@ -30,68 +30,12 @@
   gap: 20px;
 }
 
-.my-listing {
-  display: flex;
-  flex-basis: calc(50% - 10px);
-  flex-direction: column;
-  width: min-content;
+.my-listings .listing-card {
+  flex-direction: row;
 }
 
-.my-listing .listing-card {
-  background-color: var(--base-200);
-  border-radius: 16px;
-  display: flex;
-}
-
-.my-listing .listing-details {
-  display: flex;
-  flex-direction: column;
+.my-listings .actions button {
   flex-grow: 1;
-  gap: 5px;
-  padding: 10px;
-}
-
-.my-listing h3 {
-  margin: 5px;
-}
-
-.my-listing p {
-  flex-grow: 1;
-  margin: 3px;
-}
-
-.my-listing img {
-  max-width: 256px;
-  height: 196px;
-  object-fit: cover;
-  border-radius: 16px;
-}
-
-.my-listing .stats {
-  display: flex;
-  justify-content: space-between;
-  color: var(--success);
-}
-
-.my-listing .actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
-}
-
-.item {
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  text-align: left;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
 }
 
 @media screen and (max-width: 800px) {
@@ -99,7 +43,9 @@
     display: none;
   }
 
-  .my-listings, .my-listing, .listing-card {
+  .my-listings,
+  .my-listing,
+  .listing-card {
     display: flex;
     flex-direction: column;
     align-items: center;

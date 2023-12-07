@@ -17,27 +17,6 @@ function ListingCard({ children, listing }) {
 
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
 
-  const [myUser, setMyUser] = useState({});
-  const [listingsByUser, setListingsByUser] = useState({});
-  useEffect(() => {
-    const my_user = sparkUsers[user_id];
-    console.log(my_user);
-    if (!my_user) return;
-
-    const subscribed_ids = my_user.subscribed_to ?? [];
-
-    const listings_by_user = auctionListings.reduce((map, listing) => {
-      if (!subscribed_ids.includes(listing.user_id)) return map;
-
-      if (!map[listing.user_id]) map[listing.user_id] = [];
-      map[listing.user_id].push(listing);
-      return map;
-    }, {});
-
-    setListingsByUser(listings_by_user);
-    setMyUser(my_user);
-  }, [auctionListings, sparkUsers, user_id]);
-
   const [highestBidMap, setHighestBidMap] = useState({});
   useEffect(() => {
     // Filter auctionListings based on user_id
@@ -129,8 +108,8 @@ function ListingCard({ children, listing }) {
             <span className="overlay-text">SOLD</span>
           </div>
         )}
+        <div className="actions">{children}</div>
       </div>
-      <div>{children}</div>
     </div>
   );
 }

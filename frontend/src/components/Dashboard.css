@@ -65,44 +65,11 @@
   flex-grow: 1;
 }
 
-.dashboard-content .my-listings {
+.dashboard-content .popular-listings {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.dashboard-content .listing {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  background-color: var(--base-200);
-  padding: 10px;
-  border-radius: 16px;
-  flex-basis: calc(50% - 30px);
-  flex-grow: 1;
-}
-
-.dashboard-content .listing h3 {
-  margin: 5px;
-}
-
-.dashboard-content .listing p {
-  margin: 3px;
-  font-size: 0.8em;
-}
-
-.dashboard-content .listing img {
-  margin: auto;
-  max-width: 100%;
-  object-fit: cover;
-  border-radius: 16px;
-}
-
-.dashboard-content .listing .details {
-  display: flex;
-  justify-content: space-between;
-  color: var(--success);
 }
 
 .item {
