@@ -14,13 +14,21 @@ const ProfilePage = () => {
   const { auctionListings, auctionBids, sparkUsers } = useSparkBidContext();
 
   const [profileAuctionListings, setProfileAuctionListings] = useState([]);
+  const [highestBidMap, setHighestBidMap] = useState({});
 
   const profile_user = sparkUsers[user_id];
 
-  const highest_bid = auctionBids.reduce(
-    (max, bid) => (bid.amount > max.amount ? bid : max),
-    auctionBids[0]
-  );
+  useEffect(() => {
+    // Filter auctionListings based on user_id
+
+    const highest_bid_map = auctionBids.reduce((map, bid) => {
+      if (!map[bid.listing_id] || bid.amount > map[bid.listing_id].amount)
+        map[bid.listing_id] = bid;
+      return map;
+    }, {});
+
+    setHighestBidMap(highest_bid_map);
+  }, [auctionBids]);
 
   useEffect(() => {
     // Filter auctionListings based on user_id
@@ -30,8 +38,6 @@ const ProfilePage = () => {
 
     setProfileAuctionListings(filteredListings);
   }, [auctionListings, user_id]);
-
-  const navigate = useNavigate();
 
   return (
     <div className="profile-page-container">
@@ -85,8 +91,8 @@ const ProfilePage = () => {
                     <p>{listing.description}</p>
                     <div className="stats">
                       <span className="current-bid">
-                        Current Bid: $
-                        {highest_bid ? `${highest_bid.amount}` : "No bids"}
+                        Current Bid: 
+                        {highestBidMap[listing.id] ? `$${highestBidMap[listing.id].amount}` : "No bids"}
                       </span>
                     </div>
                     <h4>STATUS: UNSOLD</h4>
