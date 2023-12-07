@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyBids.css";
 import { supabase_client } from "../../lib/supabase-client";
-import { fetchServer } from "../../lib/fetchServer";
-import ListingWizard from "./../ListingWizard";
 import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
-import { getPublicUrl } from "../../lib/utils";
 import ListingCard from "../global/ListingCard";
 import Footer from "../mobile/global/footer/Footer";
 

@@ -137,7 +137,15 @@
   width: 100%;
 }
 
+.profile-page-container .listing-card {
+  flex-direction: row;
+}
+
 @media screen and (max-width: 800px) {
+  .profile-page-container {
+    padding: 5vw 0vw 15vw;
+  }
+
   .profile-img {
     margin: 0px;
   }
