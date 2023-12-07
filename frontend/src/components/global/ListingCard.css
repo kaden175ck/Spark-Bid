@@ -1,13 +1,14 @@
 .listing-card {
   display: flex;
   position: relative;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 5px;
   background-color: var(--base-200);
   border-radius: 16px;
   flex-basis: calc(50% - 20px);
   flex-grow: 1;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .listing-card img {
@@ -16,6 +17,8 @@
   height: 100%;
   object-fit: cover;
   border-radius: 16px;
+  margin: 0px;
+  padding: 10px;
 }
 
 .listing-card .listing-card-body {
@@ -24,6 +27,8 @@
   flex-wrap: wrap;
   gap: 10px;
   margin: 5px;
+  max-width: 60%;
+  margin-left: auto;
 }
 
 .listing-card .listing-card-body h3 {
@@ -32,7 +37,7 @@
 }
 
 .listing-card .listing-card-body p {
-  margin: 5px 0px;
+  margin: 0px;
   width: 100%;
   font-size: 0.8em;
 }
@@ -75,4 +80,18 @@
 .listing-card .sold-overlay .overlay-text {
   transform-origin: center;
   transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 800px) {
+  .listing-card img {
+    padding: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .listing-card .listing-card-body {
+    display: block;
+    margin: 0px;
+    max-width: 100%;
+  }
 }

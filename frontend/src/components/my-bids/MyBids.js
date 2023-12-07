@@ -6,6 +6,7 @@ import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import ListingCard from "../global/ListingCard";
+import Footer from "../mobile/global/footer/Footer";
 
 function MyBids() {
   const { session, loading } = useAuth();
@@ -66,6 +67,7 @@ function MyBids() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
