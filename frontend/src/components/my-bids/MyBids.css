@@ -36,3 +36,45 @@
     width: 100%; 
     box-sizing: border-box;
 }
+
+.listing-card {
+    display: flex;
+    align-items: center;
+}
+
+.listing-card img {
+    margin-left: 40px;
+    max-width: 256px;
+    height: 196px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+.listing-card p {
+    margin: 3px;
+    font-size: 1.0em;
+    width: 200px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+}
+
+.item-description {
+    width: 200px;
+    color: var(--base-content);
+    height: 250px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.bid-info {
+    background-color: var(--base-300);
+    margin-left: 30px;
+    margin-bottom: 20px;
+    width: 500px;
+    color: var(--base-content);
+    height: 250px;
+    border-radius: 7px;
+    padding: 10px;
+    box-sizing: border-box;
+}
