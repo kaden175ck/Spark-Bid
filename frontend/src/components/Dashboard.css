@@ -119,6 +119,21 @@ a:active {
   .dashboard-nav {
     display: none;
   }
+
+  .dashboard-content {
+    width: 90vw;
+  }
+
+  .dashboard-content .popular-listings {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .popular-listings .listing-card-body {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 800px) {
