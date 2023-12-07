@@ -33,11 +33,11 @@ function NavigationBar() {
               <i className="fa-solid fa-gavel"></i>
               Listings
             </div>
-            <div className="nav-item" onClick={() => navigate("/home")}>
+            <div className="nav-item" onClick={() => navigate("/my-bids")}>
               <i className="fa-solid fa-money-bills"></i>
               Bids
             </div>
-            <div className="nav-item" onClick={() => navigate("/home")}>
+            <div className="nav-item" onClick={() => navigate("/subscribed-page")}>
               <i className="fa-solid fa-newspaper"></i>
               Seller
             </div>
