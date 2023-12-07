@@ -43,7 +43,7 @@ const ProfilePage = () => {
     );
 
     setProfileAuctionListings(filteredListings);
-  }, [auctionListings, sparkUsers]);
+  }, [auctionListings, sparkUsers, user_id]);
 
   const [isSubscribed, setIsSubscribed] = useState(false);
   useEffect(() => {
