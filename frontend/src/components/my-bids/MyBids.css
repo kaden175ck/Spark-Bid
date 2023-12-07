@@ -11,7 +11,7 @@
   gap: 10px;
   max-width: var(--desktop-width);
   /* width: 100%; */
-  margin: auto;
+  margin: 0 auto;
 }
 
 .my-bids-container .my-bids-content h2 {
@@ -25,7 +25,6 @@
 
 .my-bids-container .my-bids {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   gap: 20px;
 }
