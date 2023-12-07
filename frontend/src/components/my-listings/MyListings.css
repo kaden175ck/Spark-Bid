@@ -93,3 +93,32 @@
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
 }
+
+@media screen and (max-width: 800px) {
+  .NavigationBar {
+    display: none;
+  }
+
+  .my-listings, .my-listing, .listing-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .my-listings-header {
+    width: auto;
+  }
+
+  .my-listings {
+    padding-bottom: 100px;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .action-button {
+    width: 35vw;
+  }
+}
