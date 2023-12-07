@@ -5,6 +5,7 @@ import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "../global/NavigationBar";
 import { getPublicUrl } from "../../lib/utils";
 import Footer from "../mobile/global/footer/Footer";
+import ListingCard from "../global/ListingCard";
 
 function SearchPage() {
   let { query: urlQuery } = useParams();
@@ -57,29 +58,7 @@ function SearchPage() {
         <div className="search-results">
           {searchedListings.length > 0 ? (
             searchedListings.map((listing) => (
-              <a
-                href={`/listing/${listing.id}`}
-                data-nostyle
-                key={listing.id}
-                className="listing"
-              >
-                {listing.image_ids && listing.image_ids.length > 0 && (
-                  <img
-                    src={getPublicUrl(listing.user_id, listing.image_ids[0])}
-                    alt="An img"
-                  />
-                )}
-                <div className="details">
-                  <h3>{listing.title}</h3>
-                  <p>{listing.description}</p>
-                  <span className="start-price">
-                    Starting: ${listing.start_price}
-                  </span>
-                  <span className="increment">
-                    Increment: +${listing.increment}
-                  </span>
-                </div>
-              </a>
+              <ListingCard key={listing.id} listing={listing}></ListingCard>
             ))
           ) : (
             <p>No Results...</p>
