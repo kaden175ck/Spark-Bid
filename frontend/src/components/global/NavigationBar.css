@@ -119,6 +119,19 @@
   box-sizing: border-box;
 }
 
+.search-page-container #nav-search {
+  display: none;
+}
+
+.search-page-container .NavigationBar {
+  position: relative;
+}
+
+.search-page-container #nav-profile {
+  position: absolute;
+  right: 38px;
+}
+
 @media screen and (max-width: 800px) {
   .NavigationBar > .desktop-content {
     display: none;
