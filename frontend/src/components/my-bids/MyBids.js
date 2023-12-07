@@ -8,6 +8,7 @@ import { useSparkBidContext } from "../../lib/SparkBidStore";
 import NavigationBar from "./../global/NavigationBar";
 import useAuth from "../../lib/auth-hook";
 import { getPublicUrl } from "../../lib/utils";
+import ListingCard from "../global/ListingCard";
 
 function MyBids() {
 
@@ -62,63 +63,7 @@ function MyBids() {
         <div className="my-bids">
           {userAuctionBidListings.length > 0 ? (
             userAuctionBidListings.map((listing) => (
-                <div key={listing.id} className="my-bid">
-                    <h3>{listing.title}</h3>
-                    <div className="listing-card">
-                        <div className="item-description">
-                            <p>{listing.description}</p>
-                            <div className="stats">
-                                {/* <span className="start-price">
-                                    Starting: ${listing.start_price}
-                                </span><br/>
-                                <span className="increment">
-                                    Increment: +${listing.increment}
-                                </span> */}
-                                <span className="seller">
-                                    Seller: <br />
-                                    {listing?.user_id ?? "Unknown User"}
-                                </span>
-                                
-                            </div>
-                            
-                            <div className="actions">
-                            {/* Add your action buttons here */}
-                            </div>
-                        </div>
-                        {listing.image_ids && listing.image_ids.length > 0 && (
-                            <a href={`/listing/${listing.id}`}>
-                            <img
-                                src={getPublicUrl(listing.user_id, listing.image_ids[0])}
-                                alt="An img"
-                            />
-                            </a>
-                        )}
-                        <div className="bid-info">
-                            {/* <p>
-                                Current Bid: <br />
-                                {highest_bid ? `$${highest_bid.amount}` : "No bids"}
-                            </p>
-                            <p>
-                                Increment: <br />
-                                <span style={{ color: "var(--success)" }}>
-                                    +${listing.increment}
-                                </span>
-                            </p>
-                            <p>
-                                Starting Bid: <br />
-                                <span style={{ color: "var(--success)" }}>
-                                    ${listing.start_price}
-                                </span>
-                            </p>
-                            <p>
-                                Time Left: <br />
-                                <span style={{ color: "var(--error)" }}>
-                                    {"{listing time left}"}
-                                </span>
-                            </p> */}
-                        </div>
-                    </div>
-              </div>
+                <ListingCard listing={listing} />
             ))
           ) : (
             <p>You have no bids</p>
