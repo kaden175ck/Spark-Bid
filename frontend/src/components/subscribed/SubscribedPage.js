@@ -42,7 +42,7 @@ function SubscribedPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="my-listings-container">
+    <div className="subscribed-page-container">
       <NavigationBar />
       <div className="my-listings-content">
         <div className="my-listings-header">
@@ -54,9 +54,11 @@ function SubscribedPage() {
             Object.keys(listingsByUser).map((listing_user_id) => (
               <div key={listing_user_id}>
                 <h3>{sparkUsers[listing_user_id].name}</h3>
-                {listingsByUser[listing_user_id].map((listing) => (
-                  <ListingCard listing={listing} />
-                ))}
+                <div className="subscribed-user-listings">
+                  {listingsByUser[listing_user_id].map((listing) => (
+                    <ListingCard listing={listing} />
+                  ))}
+                </div>
               </div>
             ))
           ) : (

@@ -1,10 +1,10 @@
-.my-listings-container {
+.subscribed-page-container {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
 }
 
-.my-listings-content {
+.subscribed-page-container .my-listings-content {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -14,36 +14,36 @@
   margin: auto;
 }
 
-.my-listings-content h2 {
+.subscribed-page-container .subscribed-user-listings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.subscribed-page-container .my-listings-content h2 {
   margin: 0px;
 }
 
-.my-listings-header {
+.subscribed-page-container .my-listings-header {
   display: flex;
   justify-content: space-between;
 }
 
-.my-listings {
+.subscribed-page-container .my-listings {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.my-listing {
-  display: flex;
-  flex-basis: calc(50% - 10px);
-  flex-direction: column;
-  width: min-content;
-}
-
-.my-listing .listing-card {
+.subscribed-page-container .my-listing .listing-card {
   background-color: var(--base-200);
   border-radius: 16px;
   display: flex;
+  flex-basis: calc(50% - 20px);
+  flex-grow: 1;
 }
 
-.my-listing .listing-details {
+.subscribed-page-container .my-listing .listing-details {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -51,35 +51,35 @@
   padding: 10px;
 }
 
-.my-listing h3 {
+.subscribed-page-container .my-listing h3 {
   margin: 5px;
 }
 
-.my-listing p {
+.subscribed-page-container .my-listing p {
   flex-grow: 1;
   margin: 3px;
 }
 
-.my-listing img {
+.subscribed-page-container .my-listing img {
   max-width: 256px;
   height: 196px;
   object-fit: cover;
   border-radius: 16px;
 }
 
-.my-listing .stats {
+.subscribed-page-container .my-listing .stats {
   display: flex;
   justify-content: space-between;
   color: var(--success);
 }
 
-.my-listing .actions {
+.subscribed-page-container .my-listing .actions {
   display: flex;
   justify-content: flex-end;
   gap: 5px;
 }
 
-.item {
+.subscribed-page-container .item {
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
   padding: 20px;
@@ -95,20 +95,22 @@
 }
 
 @media screen and (max-width: 800px) {
-  .my-listings, .my-listing, .listing-card {
+  .my-listings,
+  .my-listing,
+  .listing-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-basis: calc(80% - 20px);
+    flex-grow: 1;
   }
 
   .my-listings {
     width: 90vw;
   }
-  
+
   .my-listings-content {
     width: 90vw;
     padding: 5vw;
   }
-
-  
 }
